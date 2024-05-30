@@ -25,33 +25,33 @@ import static org.junit.jupiter.api.Assertions.*;
  *
  * @author Marcel Haßlinger
  */
-public class TestJson5Hexadecimal {
+class TestJson5Hexadecimal {
 
     @Test
-    void neutralHex() {
+    void json5primitive_handles_neutral_hex_numbers() {
         String hex = "0x100";
         Json5Primitive primitive = new Json5Hexadecimal(hex);
-        assertEquals(primitive.getAsInt(), 256);
+        assertEquals(256, primitive.getAsInt());
         assertEquals(hex, primitive.getAsString());
     }
 
     @Test
-    void positiveHex() {
+    void json5primitive_handles_positive_hex_numbers() {
         String hex = "+0x100";
         Json5Primitive primitive = new Json5Hexadecimal(hex);
-        assertEquals(primitive.getAsInt(), 256);
+        assertEquals(256, primitive.getAsInt());
         assertEquals("0x100", primitive.getAsString()); // We cut the '+' by default since we cannot track this state
     }
 
     @Test
-    void positivePrefixedHex() {
+    void json5hexadecimal_serialize_positive_prefixed_hex() {
         String hex = "0x100";
         Json5Primitive primitive = new Json5Hexadecimal(hex);
         assertEquals("+0x100", Json5Hexadecimal.serializeHexString(primitive.getAsBigInteger(), true));
     }
 
     @Test
-    void negateHex() {
+    void json5hexadecimal_serialize_negative_prefixed_hex() {
         String hex = "-0x100";
         Json5Primitive primitive = new Json5Hexadecimal(hex);
         assertEquals(primitive.getAsInt(), -256);
@@ -59,7 +59,7 @@ public class TestJson5Hexadecimal {
     }
 
     @Test
-    void instance() {
+    void json5primitive_of_a_hex_string_becomes_an_instance_of_json5hexadecimal() {
         assertTrue(Json5Primitive.of("0x100", true) instanceof Json5Hexadecimal);
         assertFalse(Json5Primitive.of("0x100", false) instanceof Json5Hexadecimal);
     }

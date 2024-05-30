@@ -27,10 +27,10 @@ import static org.junit.jupiter.api.Assertions.*;
  *
  * @author Marcel Haßlinger
  */
-public class TestJson5Object {
+class TestJson5Object {
 
     @Test
-    void remove() {
+    void add_and_remove_properties_in_a_json_object() {
         Json5Object element = new Json5Object();
         element.addProperty("str", "Lorem ipsum");
         element.remove("str");
@@ -39,13 +39,13 @@ public class TestJson5Object {
     }
 
     @Test
-    void notAObject() {
+    void a_json_array_is_not_an_json_object() {
         Json5Element element = new Json5Array();
         assertThrows(IllegalStateException.class, element::getAsJson5Object);
     }
 
     @Test
-    void deepCopy() {
+    void make_a_deep_copy_of_a_json_object() {
         Json5Object element = new Json5Object();
         element.addProperty("str", "Lorem ipsum");
         element.addProperty("bool", true);
@@ -62,7 +62,7 @@ public class TestJson5Object {
     }
 
     @Test
-    void add() {
+    void add_a_property_to_a_json_object() {
         Json5Object object = new Json5Object();
         object.addProperty("char", 'c');
         object.add("obj", new Json5Object());

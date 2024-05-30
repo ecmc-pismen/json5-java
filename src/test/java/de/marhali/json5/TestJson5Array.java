@@ -31,7 +31,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class TestJson5Array {
 
     @Test
-    void deepCopy() {
+    void make_a_deep_copy_of_an_json_array() {
         Json5Array array = new Json5Array();
         array.add(true);
         array.add(123);
@@ -51,13 +51,13 @@ public class TestJson5Array {
     }
 
     @Test
-    void notAArray() {
+    void through_exception_if_not_an_json_array() {
         Json5Element element = new Json5Object();
         assertThrows(IllegalStateException.class, element::getAsJson5Array);
     }
 
     @Test
-    void add() {
+    void add_an_element_to_an_json_array() {
         Json5Array array = new Json5Array();
         array.add("Lorem ipsum");
         assertEquals(1, array.size());
@@ -65,7 +65,7 @@ public class TestJson5Array {
     }
 
     @Test
-    void addAll() {
+    void add_an_array_to_an_array_flattens_the_added_array() {
         Json5Array array = new Json5Array();
         array.add("Lorem ipsum");
 

@@ -33,7 +33,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class TestJson5Options {
 
     @Test
-    void singleQuoted() {
+    void allow_single_quoted_properties_and_strings() {
         String payload = "['hello',1,'two']";
 
         Json5Options options = new Json5Options(true, true, false, 0);
@@ -44,7 +44,7 @@ public class TestJson5Options {
     }
 
     @Test
-    void doubleQuoted() {
+    void allow_double_quoted_properties_and_strings() {
         String payload = "['hello',1,'two']";
 
         Json5Options options = new Json5Options(true, false, false, 0);
@@ -55,7 +55,7 @@ public class TestJson5Options {
     }
 
     @Test
-    void trailingComma() {
+    void allow_trailing_commas_in_arrays() {
         String payload = "['hello',1,'two']";
 
         Json5Options options = new Json5Options(true, true, true, 0);
@@ -66,7 +66,7 @@ public class TestJson5Options {
     }
 
     @Test
-    void prettyPrinting() {
+    void pretty_print_with_set_indent() {
         String payload = "['hello',1,'two']";
 
         Json5Options options = new Json5Options(true, true, true, 2);

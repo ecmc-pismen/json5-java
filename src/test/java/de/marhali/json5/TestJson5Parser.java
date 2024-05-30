@@ -31,22 +31,22 @@ import static org.junit.jupiter.api.Assertions.*;
  *
  * @author Marcel Haßlinger
  */
-public class TestJson5Parser {
+class TestJson5Parser {
 
     @Test
-    void array() {
+    void parse_an_array_with_single_quotes() {
         String payload = "['hello',1,'two',{'key':'value'}]";
         Json5Options options = new Json5Options(true, true, false, 0);
         Json5Lexer lexer = new Json5Lexer(new StringReader(payload), options);
         Json5Array element = Json5Parser.parseArray(lexer);
         assertEquals(payload, element.toString(options));
-        assertTrue(element.get(0).getAsJson5Primitive() instanceof Json5String);
-        assertTrue(element.get(1).getAsJson5Primitive() instanceof Json5Number);
+        assertInstanceOf(Json5String.class, element.get(0).getAsJson5Primitive());
+        assertInstanceOf(Json5Number.class, element.get(1).getAsJson5Primitive());
         assertTrue(element.get(3).isJson5Object());
     }
 
     @Test
-    void object() {
+    void parse_an_object_with_single_quotes() {
         String payload = "{'key':'value','array':['first','second'],'nested':{'key':'value'}}";
         Json5Options options = new Json5Options(true, true, false, 0);
         Json5Lexer lexer = new Json5Lexer(new StringReader(payload), options);
@@ -87,7 +87,7 @@ public class TestJson5Parser {
     }
 
     @Test
-    void insideQuotes() {
+    void allow_mixed_single_and_double_quotes_in_arrays() {
         String payload = "[\"example\",'other']";
         Json5Options options = new Json5Options(true, true, false, 0);
         Json5Lexer lexer = new Json5Lexer(new StringReader(payload), options);
@@ -96,7 +96,7 @@ public class TestJson5Parser {
     }
 
     @Test
-    void mixedQuotes() {
+    void allow_non_quoted_properties() {
         String payload = "{ a: \"Test \\' 123\" }";
         Json5Options options = new Json5Options(true, true, false, 0);
         Json5Lexer lexer = new Json5Lexer(new StringReader(payload), options);
@@ -105,7 +105,16 @@ public class TestJson5Parser {
     }
 
     @Test
-    void escapeChars() {
+    void allow_mixed_single_and_double_quotes() {
+        String payload = "{ 'a': \"Test \\' 123\" }";
+        Json5Options options = new Json5Options(true, true, false, 0);
+        Json5Lexer lexer = new Json5Lexer(new StringReader(payload), options);
+        Json5Object element = Json5Parser.parseObject(lexer);
+        assertEquals("Test ' 123", element.get("a").getAsString());
+    }
+
+    @Test
+    void recognize_escaped_characters() {
         String payload = "{ a: \"\\n\\r\\f\\b\\t\\v\\0\u12fa\\x7F\" }";
         Json5Options options = new Json5Options(true, true, false, 0);
         Json5Lexer lexer = new Json5Lexer(new StringReader(payload), options);
@@ -115,7 +124,7 @@ public class TestJson5Parser {
     }
 
     @Test
-    void specialNumbers() {
+    void recognize_special_numbers() {
         String payload = "[+NaN,NaN,-NaN,+Infinity,Infinity,-Infinity]";
         Json5Options options = new Json5Options(true, true, false, 0);
         Json5Lexer lexer = new Json5Lexer(new StringReader(payload), options);
@@ -125,7 +134,7 @@ public class TestJson5Parser {
     }
 
     @Test
-    void malformed() {
+    void malformed_json_causes_a_json5exception_to_be_thrown() {
         String payload = "[10}";
         Json5Options options = new Json5Options(true, true, false, 0);
         Json5Lexer lexer = new Json5Lexer(new StringReader(payload), options);
@@ -133,7 +142,7 @@ public class TestJson5Parser {
     }
 
     @Test
-    void notAObject() {
+    void an_empty_array_is_not_an_object() {
         String payload = "[]";
         Json5Options options = new Json5Options(true, true, false, 0);
         Json5Lexer lexer = new Json5Lexer(new StringReader(payload), options);
@@ -141,7 +150,7 @@ public class TestJson5Parser {
     }
 
     @Test
-    void incompleteObject() {
+    void incomplete_json_causes_a_json5exception_to_be_thrown() {
         String payload = "{";
         Json5Options options = new Json5Options(true, true, false, 0);
         Json5Lexer lexer = new Json5Lexer(new StringReader(payload), options);
@@ -149,7 +158,7 @@ public class TestJson5Parser {
     }
 
     @Test
-    void notAArray() {
+    void an_empty_object_is_not_an_array() {
         String payload = "{}";
         Json5Options options = new Json5Options(true, true, false, 0);
         Json5Lexer lexer = new Json5Lexer(new StringReader(payload), options);
@@ -157,7 +166,7 @@ public class TestJson5Parser {
     }
 
     @Test
-    void incompleteArray() {
+    void incomplete_array_throws_a_json5exception() {
         String payload = "[";
         Json5Options options = new Json5Options(true, true, false, 0);
         Json5Lexer lexer = new Json5Lexer(new StringReader(payload), options);
@@ -165,7 +174,7 @@ public class TestJson5Parser {
     }
 
     @Test
-    void duplicateObjectKeys() {
+    void duplicate_object_keys_throws_a_json5exception() {
         String payload = "{'key':'value','key':'value'}";
         Json5Options options = new Json5Options(true, true, false, 0);
         Json5Lexer lexer = new Json5Lexer(new StringReader(payload), options);
@@ -173,7 +182,7 @@ public class TestJson5Parser {
     }
 
     @Test
-    void noDivider() {
+    void missing_key_value_divider_throws_a_json5exception() {
         String payload = "{'key''value'}";
         Json5Options options = new Json5Options(true, true, false, 0);
         Json5Lexer lexer = new Json5Lexer(new StringReader(payload), options);
@@ -181,7 +190,7 @@ public class TestJson5Parser {
     }
 
     @Test
-    void noComma() {
+    void missing_comma_between_keys_throws_a_json5exception() {
         String payload = "{'key':'value''otherKey':'value'}";
         Json5Options options = new Json5Options(true, true, false, 0);
         Json5Lexer lexer = new Json5Lexer(new StringReader(payload), options);
@@ -189,7 +198,7 @@ public class TestJson5Parser {
     }
 
     @Test
-    void unknownControlCharacter() {
+    void unknown_control_characters_throws_a_json5exception() {
         String payload = "|";
         Json5Options options = new Json5Options(true, true, false, 0);
         Json5Lexer lexer = new Json5Lexer(new StringReader(payload), options);
@@ -197,7 +206,7 @@ public class TestJson5Parser {
     }
 
     @Test
-    void empty() {
+    void empty_payload_returns_a_null_object() {
         String payload = "";
         Json5Options options = new Json5Options(true, true, false, 0);
         Json5Lexer lexer = new Json5Lexer(new StringReader(payload), options);
@@ -205,7 +214,7 @@ public class TestJson5Parser {
     }
 
     @Test
-    void memberNames() {
+    void utf_16_is_alloewd_as_key_names() {
         String payload = "{ $Lorem\\u0041_Ipsum123指事字: 0 }";
         Json5Options options = new Json5Options(true, true, false, 0);
         Json5Lexer lexer = new Json5Lexer(new StringReader(payload), options);
@@ -214,7 +223,7 @@ public class TestJson5Parser {
     }
 
     @Test
-    void multiComments() {
+    void multi_lines_comments_are_allowed() {
         String payload = "/**/{/**/a/**/:/**/'b'/**/}/**/";
         Json5Options options = new Json5Options(true, true, false, 0);
         Json5Lexer lexer = new Json5Lexer(new StringReader(payload), options);
@@ -223,7 +232,7 @@ public class TestJson5Parser {
     }
 
     @Test
-    void singleComments() {
+    void single_line_comments_are_allowed() {
         String payload = "// test\n{ // lorem ipsum\n a: 'b'\n// test\n}// test";
         Json5Options options = new Json5Options(true, true, false, 0);
         Json5Lexer lexer = new Json5Lexer(new StringReader(payload), options);
@@ -232,7 +241,7 @@ public class TestJson5Parser {
     }
 
     @Test
-    void booleans() {
+    void boolean_values_are_parsed() {
         String payload = "[true,false]";
         Json5Options options = new Json5Options(true, true, false, 0);
         Json5Lexer lexer = new Json5Lexer(new StringReader(payload), options);
@@ -242,7 +251,7 @@ public class TestJson5Parser {
     }
 
     @Test
-    void numbers() {
+    void number_formats_are_parsed_correctly() {
         String payload = "[123e+45,-123e45,123]";
         Json5Options options = new Json5Options(true, true, false, 0);
         Json5Lexer lexer = new Json5Lexer(new StringReader(payload), options);

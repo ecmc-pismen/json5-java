@@ -51,12 +51,15 @@ public class TestJson5 {
 
     @BeforeEach
     void setup() {
-        json5 = Json5.builder(builder ->
-                builder.allowInvalidSurrogate().quoteSingle().indentFactor(2).build());
+        json5 = Json5.builder(builder ->        // Builder with the following options:
+                builder.allowInvalidSurrogate() // Allow invalid unicode surrogate pairs
+                       .quoteSingle()           // Use single quotes instead of double quotes
+                       .indentFactor(2)         // Pretty print with an ident of 2 spaces
+                       .build());
     }
 
     @Test
-    void parseString() {
+    void parses_single_quoted_data_as_double_quoted() {
         String jsonString = "{\n  'key': 'value',\n  'bool': true,\n  'hex': 0x100\n}";
         Json5Element element = json5.parse(jsonString);
 
@@ -67,7 +70,7 @@ public class TestJson5 {
     }
 
     @Test
-    void serializeString() throws IOException {
+    void serialize_data_with_single_quotes() throws IOException {
         Json5Object element = new Json5Object();
         element.addProperty("key", "value");
         element.addProperty("bool", true);
@@ -80,7 +83,7 @@ public class TestJson5 {
     }
 
     @Test
-    void ioArrayFile() throws IOException {
+    void read_an_array_from_a_input_stream_and_parse_it() throws IOException {
         try(InputStream stream = getTestResource("test.array.json5")) {
             Json5Element element = json5.parse(stream);
             assertTrue(element.isJson5Array());
@@ -89,7 +92,7 @@ public class TestJson5 {
     }
 
     @Test
-    void ioObjectFile() throws IOException {
+    void read_an_object_from_an_input_stream_and_parse_it() throws IOException {
         try(InputStream stream = getTestResource("test.object.json5")) {
             Json5Element element = json5.parse(stream);
             assertTrue(element.isJson5Object());
