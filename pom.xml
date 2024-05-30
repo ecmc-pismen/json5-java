@@ -6,7 +6,7 @@
 
     <groupId>de.marhali</groupId>
     <artifactId>json5-java</artifactId>
-    <version>2.0.0</version>
+    <version>2.0.1</version>
     <name>${project.groupId}:${project.artifactId}</name>
     <description>A lightweight library to parse and serialize JSON5 data</description>
     <url>https://github.com/marhali/json5-java</url>
@@ -20,6 +20,11 @@
 
     <developers>
         <developer>
+            <id>pismen</id>
+            <name>Peter Ismen</name>
+            <email>pismen@ecmc.org</email>
+        </developer>
+        <developer>
             <id>marhali</id>
             <name>Marcel Haßlinger</name>
             <email>contact@marhali.de</email>
@@ -27,16 +32,16 @@
     </developers>
 
     <scm>
-        <connection>scm:git:git@github.com:marhali/json5-java.git</connection>
-        <developerConnection>scm:git:ssh://github.com:marhali/json5-java.git</developerConnection>
-        <url>https://github.com/marhali/json5-java/tree/main</url>
+        <connection>scm:git:git@github.com:ecmc-pismen/json5-java.git</connection>
+        <developerConnection>scm:git:ssh:/github.com:ecmc-pismen/json5-java.git</developerConnection>
+        <url>https://github.com/ecmc-pismen/json5-java/tree/main</url>
     </scm>
 
     <properties>
-        <maven.compiler.source>11</maven.compiler.source>
-        <maven.compiler.target>11</maven.compiler.target>
+        <maven.compiler.source>21</maven.compiler.source>
+        <maven.compiler.target>21</maven.compiler.target>
     </properties>
-
+<!--
     <distributionManagement>
         <snapshotRepository>
             <id>ossrh</id>
@@ -47,7 +52,7 @@
             <url>https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/</url>
         </repository>
     </distributionManagement>
-
+-->
     <dependencies>
         <!-- JUnit for unit tests -->
         <dependency>
@@ -99,7 +104,7 @@
             <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
-                <version>0.8.7</version>
+                <version>0.8.12</version>
                 <executions>
                     <execution>
                         <goals>
