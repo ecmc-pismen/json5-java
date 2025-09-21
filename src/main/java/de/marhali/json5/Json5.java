@@ -39,8 +39,46 @@ import java.util.function.Function;
  *     {@link Reader}, {@link Writer} or simple {@link String} instances.
  * </p>
  *
+ * <pre>
+ * {@code
+ * // Create Json5 instance using builder pattern to configure desired options
+ * Json5 json5 = Json5.builder(builder -> builder
+ *     .quoteless()
+ *     .quoteSingle()
+ *     .parseComments()
+ *     .writeComments()
+ *     .prettyPrinting()
+ *     .build()
+ *     );
+ *
+ * // Parse from a String
+ * Json5Element element =
+ *         json5.parse("{ 'key': 'value', 'array': ['first val','second val'] }");
+ *
+ * // Or parse from a Reader or InputStream
+ * try (InputStream stream = ...) {
+ *     Json5Element element = json5.parse(stream);
+ *     // ...
+ * } catch (IOException e) {
+ *     // ...
+ * }
+ *
+ * // Serialize to a String
+ * String json5String = json5.serialize(element);
+ *
+ * // Serialize to a Writer or OutputStream
+ * try (OutputStream stream = ...) {
+ *     json5.serialize(element, stream);
+ *     // ...
+ * } catch (IOException e) {
+ *     // ...
+ * }
+ *
+ * }
+ * </pre>
+ *
  * @author Marcel Haßlinger
- * @see <a href="https://spec.json5.org/">JSON5 Specification</a>
+ * @see <a href="https://spec.json5.org/">Json5 Specification</a>
  * @see Json5Parser
  * @see Json5Writer
  */
