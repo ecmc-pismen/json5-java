@@ -17,8 +17,8 @@
 package de.marhali.json5.e2e.roundtrips;
 
 import de.marhali.json5.Json5;
-import de.marhali.json5.config.Json5Options;
 import de.marhali.json5.e2e.TestResourceHelper;
+import de.marhali.json5.fixtures.Json5OptionsFixtures;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
@@ -31,7 +31,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class ParserAndWriterTest {
     @Test
     void objectRoundtrip() throws IOException {
-        var json5 = new Json5();
+        var json5 = new Json5(Json5OptionsFixtures.PRETTY);
 
         var element = json5.parse(TestResourceHelper.getTestResource("e2e/roundtrips/object.parser.json5"));
         var stringifiedElement = json5.serialize(element);
@@ -43,16 +43,7 @@ public class ParserAndWriterTest {
 
     @Test
     void objectRoundtripNoComment() throws IOException {
-        var json5 = new Json5(Json5Options.builder()
-            .allowNaN()
-            .allowInfinity()
-            .parseComments()
-            .trailingComma()
-            .indentFactor(2)
-            .quoteless()
-            .insertFinalNewline()
-            .build()
-        );
+        var json5 = new Json5(Json5OptionsFixtures.PRETTY_NO_COMMENTS);
 
         var element = json5.parse(TestResourceHelper.getTestResource("e2e/roundtrips/object.parser.json5"));
         var stringifiedElement = json5.serialize(element);
@@ -64,15 +55,7 @@ public class ParserAndWriterTest {
 
     @Test
     void objectRoundtripMinifyNoComment() throws IOException {
-        var json5 = new Json5(Json5Options.builder()
-            .allowNaN()
-            .allowInfinity()
-            .parseComments()
-            .indentFactor(0)
-            .quoteless()
-            .insertFinalNewline()
-            .build()
-        );
+        var json5 = new Json5(Json5OptionsFixtures.MINIFY_NO_COMMENTS);
 
         var element = json5.parse(TestResourceHelper.getTestResource("e2e/roundtrips/object.parser.json5"));
         var stringifiedElement = json5.serialize(element);
@@ -84,16 +67,7 @@ public class ParserAndWriterTest {
 
     @Test
     void objectRoundtripMinify() throws IOException {
-        var json5 = new Json5(Json5Options.builder()
-            .allowNaN()
-            .allowInfinity()
-            .parseComments()
-            .writeComments()
-            .indentFactor(0)
-            .quoteless()
-            .insertFinalNewline()
-            .build()
-        );
+        var json5 = new Json5(Json5OptionsFixtures.MINIFY);
 
         var element = json5.parse(TestResourceHelper.getTestResource("e2e/roundtrips/object.parser.json5"));
         var stringifiedElement = json5.serialize(element);
@@ -105,7 +79,7 @@ public class ParserAndWriterTest {
 
     @Test
     void objectRoundtripMinifyToPretty() throws IOException {
-        var json5 = new Json5();
+        var json5 = new Json5(Json5OptionsFixtures.PRETTY);
 
         var element = json5.parse(TestResourceHelper.getTestResource("e2e/roundtrips/object-minify.parser.json5"));
         var stringifiedElement = json5.serialize(element);
@@ -117,7 +91,7 @@ public class ParserAndWriterTest {
 
     @Test
     void arrayRoundtrip() throws IOException {
-        var json5 = new Json5();
+        var json5 = new Json5(Json5OptionsFixtures.PRETTY);
 
         var element = json5.parse(TestResourceHelper.getTestResource("e2e/roundtrips/array.parser.json5"));
         var stringifiedElement = json5.serialize(element);
@@ -129,16 +103,7 @@ public class ParserAndWriterTest {
 
     @Test
     void arrayRoundtripNoComment() throws IOException {
-        var json5 = new Json5(Json5Options.builder()
-            .allowNaN()
-            .allowInfinity()
-            .parseComments()
-            .trailingComma()
-            .indentFactor(2)
-            .quoteless()
-            .insertFinalNewline()
-            .build()
-        );
+        var json5 = new Json5(Json5OptionsFixtures.PRETTY_NO_COMMENTS);
 
         var element = json5.parse(TestResourceHelper.getTestResource("e2e/roundtrips/array.parser.json5"));
         var stringifiedElement = json5.serialize(element);
@@ -150,15 +115,7 @@ public class ParserAndWriterTest {
 
     @Test
     void arrayRoundtripMinifyNoComment() throws IOException {
-        var json5 = new Json5(Json5Options.builder()
-            .allowNaN()
-            .allowInfinity()
-            .parseComments()
-            .indentFactor(0)
-            .quoteless()
-            .insertFinalNewline()
-            .build()
-        );
+        var json5 = new Json5(Json5OptionsFixtures.MINIFY_NO_COMMENTS);
 
         var element = json5.parse(TestResourceHelper.getTestResource("e2e/roundtrips/array.parser.json5"));
         var stringifiedElement = json5.serialize(element);
@@ -170,16 +127,7 @@ public class ParserAndWriterTest {
 
     @Test
     void arrayRoundtripMinify() throws IOException {
-        var json5 = new Json5(Json5Options.builder()
-            .allowNaN()
-            .allowInfinity()
-            .parseComments()
-            .writeComments()
-            .indentFactor(0)
-            .quoteless()
-            .insertFinalNewline()
-            .build()
-        );
+        var json5 = new Json5(Json5OptionsFixtures.MINIFY);
 
         var element = json5.parse(TestResourceHelper.getTestResource("e2e/roundtrips/array.parser.json5"));
         var stringifiedElement = json5.serialize(element);
@@ -191,7 +139,7 @@ public class ParserAndWriterTest {
 
     @Test
     void arrayRoundtripMinifyToPretty() throws IOException {
-        var json5 = new Json5();
+        var json5 = new Json5(Json5OptionsFixtures.PRETTY);
 
         var element = json5.parse(TestResourceHelper.getTestResource("e2e/roundtrips/array-minify.parser.json5"));
         var stringifiedElement = json5.serialize(element);

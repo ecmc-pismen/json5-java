@@ -224,7 +224,6 @@ public final class Json5Options {
      *     <li>parseComments: <code>true</code></li>
      *     <li>writeComments: <code>true</code></li>
      *     <li>trailingComma: <code>true</code></li>
-     *     <li>insertFinalNewline: <code>true</code></li>
      *     <li>digitSeparatorStrategy: <code>NONE</code></li>
      *     <li>duplicateKeyStrategy: <code>UNIQUE</code></li>
      *     <li>prettyPrinting: <code>true</code></li>
@@ -238,7 +237,6 @@ public final class Json5Options {
             .parseComments()
             .writeComments()
             .trailingComma()
-            .insertFinalNewline()
             .digitSeparatorStrategy(DigitSeparatorStrategy.NONE)
             .duplicateKeyStrategy(DuplicateKeyStrategy.UNIQUE)
             .prettyPrinting()
