@@ -18,9 +18,14 @@ package de.marhali.json5.e2e.failures;
 
 import de.marhali.json5.Json5;
 import de.marhali.json5.config.DuplicateKeyStrategy;
+import de.marhali.json5.config.Json5Options;
 import de.marhali.json5.e2e.TestResourceHelper;
 import de.marhali.json5.exception.Json5Exception;
+import de.marhali.json5.stream.Json5Lexer;
+import de.marhali.json5.stream.Json5Parser;
 import org.junit.jupiter.api.Test;
+
+import java.io.StringReader;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -30,8 +35,18 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
  */
 public class InvalidArrayParserTest {
     @Test
+    void invalid_array_opening_tags_throws() {
+        var reader = new StringReader("{}");
+        var lexer = new Json5Lexer(reader, Json5Options.DEFAULT);
+
+        var ex = assertThrows(Json5Exception.class, () -> Json5Parser.parseArray(lexer));
+
+        assertEquals("A Json5Array must begin with '[' at index 0 [character 1 in line 1]", ex.getMessage());
+    }
+
+    @Test
     void invalid_array_closing_tags_throws() {
-        var json5 = Json5.builder(builder -> builder.duplicateKeyStrategy(DuplicateKeyStrategy.UNIQUE).build());
+        var json5 = new Json5();
 
         var ex = assertThrows(Json5Exception.class, () -> json5.parse(TestResourceHelper.getTestResourceContent("e2e/failures/invalid-array-closing-tags.json5")));
 
@@ -40,7 +55,7 @@ public class InvalidArrayParserTest {
 
     @Test
     void invalid_array_missing_comma_throws() {
-        var json5 = Json5.builder(builder -> builder.duplicateKeyStrategy(DuplicateKeyStrategy.UNIQUE).build());
+        var json5 = new Json5();
 
         var ex = assertThrows(Json5Exception.class, () -> json5.parse(TestResourceHelper.getTestResourceContent("e2e/failures/invalid-array-missing-comma.json5")));
 
