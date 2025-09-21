@@ -12,4 +12,5 @@
   hexNumber: 0xde_ad_be_ef,
   hexNumberNegative: -0xa_db_ee_fa,
   hexNumberPositive: 0xea_db_ee_fb,
+  hexFloatingPoint: 0x18_00,
 }
