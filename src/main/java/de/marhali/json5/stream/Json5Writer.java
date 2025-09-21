@@ -173,7 +173,7 @@ public final class Json5Writer {
                 writer.write(quote(instant.toString()));
             }
         } else if (primitive.isNumber()) {
-            writer.append(formatNumberString(primitive.getAsString()));
+            writer.append(formatNumberString(primitive.getAsString(), primitive.getNumberRadix()));
         } else {
             writer.append(primitive.getAsString());
         }
@@ -276,25 +276,49 @@ public final class Json5Writer {
 
         writer.append(']');
     }
-
-    public String applyNumberSeparator(String numberString, char separator) {
+    private String applyNumberSeparator(String numberString, int numberRadix, char separator) {
         StringBuilder sb = new StringBuilder(numberString);
+
+        boolean hasSign = numberString.startsWith("+")  || numberString.startsWith("-");
+        int offset, separatorOffset;
+
+        switch (numberRadix) {
+            case 2:
+                offset = hasSign ? 3 : 2;
+                separatorOffset = 4;
+                break;
+            case 8:
+                offset = hasSign ? 3 : 2;
+                separatorOffset = 3;
+                break;
+            case 10:
+                offset = 0;
+                separatorOffset = 3;
+                break;
+            case 16:
+                offset = hasSign ? 3 : 2;
+                separatorOffset = 2;
+                break;
+            default:
+                throw new IllegalArgumentException("Invalid number radix: " + numberRadix);
+        }
+
         int len = sb.length();
 
-        for (int i = len - 3; i > 0; i -= 3) {
+        for (int i = len - separatorOffset; i > offset; i -= separatorOffset) {
             sb.insert(i, separator);
         }
 
         return sb.toString();
     }
 
-    public String formatNumberString(String numberString) {
+    public String formatNumberString(String numberString, int numberRadix) {
         var strategy = options.getDigitSeparatorStrategy();
         switch (strategy) {
             case JAVA_STYLE:
-                return applyNumberSeparator(numberString, '_');
+                return applyNumberSeparator(numberString, numberRadix, '_');
             case C_STYLE:
-                return applyNumberSeparator(numberString, '\'');
+                return applyNumberSeparator(numberString, numberRadix, '\'');
             default:
                 return numberString;
         }

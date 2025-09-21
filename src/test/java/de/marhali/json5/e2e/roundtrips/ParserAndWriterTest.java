@@ -148,4 +148,28 @@ public class ParserAndWriterTest {
 
         assertEquals(expectedStringifiedElement, stringifiedElement);
     }
+
+    @Test
+    void extensionsRoundtripCStyle() throws IOException {
+        var json5 = new Json5(Json5OptionsFixtures.EXTENSIONS_C_STYLE);
+
+        var element = json5.parse(TestResourceHelper.getTestResource("e2e/roundtrips/extensions-c-style.parser.json5"));
+        var stringifiedElement = json5.serialize(element);
+
+        var expectedStringifiedElement = TestResourceHelper.getTestResourceContent("e2e/roundtrips/extensions-c-style.writer.json5");
+
+        assertEquals(expectedStringifiedElement, stringifiedElement);
+    }
+
+    @Test
+    void extensionsRoundtripJavaStyle() throws IOException {
+        var json5 = new Json5(Json5OptionsFixtures.EXTENSIONS_JAVA_STYLE);
+
+        var element = json5.parse(TestResourceHelper.getTestResource("e2e/roundtrips/extensions-java-style.parser.json5"));
+        var stringifiedElement = json5.serialize(element);
+
+        var expectedStringifiedElement = TestResourceHelper.getTestResourceContent("e2e/roundtrips/extensions-java-style.writer.json5");
+
+        assertEquals(expectedStringifiedElement, stringifiedElement);
+    }
 }

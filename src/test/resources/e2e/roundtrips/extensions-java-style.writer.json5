@@ -1,0 +1,15 @@
+// Number extensions with digit separator Java-style
+{
+  decimalNumber: 1_234_567,
+  decimalNumberNegative: -11_234_567,
+  decimalNumberPositive: 111_234_567,
+  binaryNumber: 0b1010_1100,
+  binaryNumberNegative: -0b10_1100,
+  binaryNumberPositive: 0b110_1100,
+  octalNumber: 0o1_234_567,
+  octalNumberNegative: -0o12_345_671,
+  octalNumberPositive: 0o123_456_712,
+  hexNumber: 0xde_ad_be_ef,
+  hexNumberNegative: -0xa_db_ee_fa,
+  hexNumberPositive: 0xea_db_ee_fb,
+}
