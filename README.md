@@ -16,7 +16,7 @@ which provides a better full-fledged API inspired by Google's [Gson](https://git
 - Fully supports JSON5 according to the [specification](https://spec.json5.org/)
 - Extensive API for interacting with elements, inspired by Google's [Gson](https://github.com/google/gson) library
 - Supports comment parsing and writing (if they can be associated with an [Json5Element](src/main/java/de/marhali/json5/Json5Element.java))
-- Fine-grained configuration options
+- Fine-grained [configuration options](#configuration-options)
 - No runtime dependencies – ensures a clean supply chain
 
 ## Installation
