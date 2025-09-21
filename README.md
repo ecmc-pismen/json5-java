@@ -1,8 +1,8 @@
 # json5-java 
 [![Build](https://img.shields.io/github/actions/workflow/status/marhali/json5-java/ci.yml?branch=main&style=for-the-badge)](https://github.com/marhali/json5-java/actions)
+[![Release](https://img.shields.io/github/v/release/marhali/json5-java?style=for-the-badge)](https://github.com/marhali/json5-java/releases)
 [![JavaDoc](https://javadoc.io/badge2/de.marhali/json5-java/javadoc.svg?style=for-the-badge)](https://javadoc.io/doc/de.marhali/json5-java)
 [![Coverage](https://img.shields.io/codecov/c/github/marhali/json5-java?style=for-the-badge)](https://codecov.io/gh/marhali/json5-java)
-[![Release](https://img.shields.io/github/v/release/marhali/json5-java?style=for-the-badge)](https://github.com/marhali/json5-java/releases)
 [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg?style=for-the-badge)](https://paypal.me/marhalide)
 
 This is a reference implementation of the [JSON5 standard](https://json5.org/) in Java 11+, 
