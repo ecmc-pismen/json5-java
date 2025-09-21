@@ -20,30 +20,30 @@ import de.marhali.json5.Json5;
 import de.marhali.json5.config.DuplicateKeyStrategy;
 import de.marhali.json5.e2e.TestResourceHelper;
 import de.marhali.json5.exception.Json5Exception;
-import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
  * @author Marcel Haßlinger
  */
-public class MissingElementClosingTest {
+public class InvalidArrayParserTest {
     @Test
-    void missing_object_closing_throws() {
+    void invalid_array_closing_tags_throws() {
         var json5 = Json5.builder(builder -> builder.duplicateKeyStrategy(DuplicateKeyStrategy.UNIQUE).build());
 
-        var ex = assertThrows(Json5Exception.class, () -> json5.parse(TestResourceHelper.getTestResourceContent("e2e/failures/invalid-closing-object.json5")));
+        var ex = assertThrows(Json5Exception.class, () -> json5.parse(TestResourceHelper.getTestResourceContent("e2e/failures/invalid-array-closing-tags.json5")));
 
-        assertEquals("A Json5Object must end with '}' at index 42 [character 0 in line 4]", ex.getMessage());
+        assertEquals("A Json5Array must end with ']' at index 17 [character 0 in line 3]", ex.getMessage());
     }
 
     @Test
-    void missing_array_closing_throws() {
+    void invalid_array_missing_comma_throws() {
         var json5 = Json5.builder(builder -> builder.duplicateKeyStrategy(DuplicateKeyStrategy.UNIQUE).build());
 
-        var ex = assertThrows(Json5Exception.class, () -> json5.parse(TestResourceHelper.getTestResourceContent("e2e/failures/invalid-closing-array.json5")));
+        var ex = assertThrows(Json5Exception.class, () -> json5.parse(TestResourceHelper.getTestResourceContent("e2e/failures/invalid-array-missing-comma.json5")));
 
-        assertEquals("A Json5Array must end with ']' at index 17 [character 0 in line 3]", ex.getMessage());
+        assertEquals("Expected ',' or ']' after value, got '[' instead at index 9 [character 3 in line 3]", ex.getMessage());
     }
 }
