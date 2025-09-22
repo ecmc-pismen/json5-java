@@ -6,8 +6,8 @@ updates:
     schedule:
       interval: monthly
 
-  # Maintain dependencies for Maven
-  - package-ecosystem: maven
+  # Maintain dependencies for Gradle
+  - package-ecosystem: gradle
     directory: /
     schedule:
       interval: monthly
