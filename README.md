@@ -63,6 +63,7 @@ See [Configuration Options](#configuration-options) for a full overview of possi
 
 ```java
 import de.marhali.json5.config.Json5Options;
+import de.marhali.json5.Json5;
 
 // Create Json5 instance using builder pattern to configure desired options
 Json5 json5 = Json5.builder(builder -> builder
@@ -86,6 +87,9 @@ Json5 json5 = new Json5(options);
 During parsing, a JSON5 file or string is converted into the corresponding [Json5Element's](src/main/java/de/marhali/json5/Json5Element.java).
 
 ```java
+import de.marhali.json5.Json5;
+import de.marhali.json5.Json5Element;
+
 Json5 json5 = ...
 
 // Parse from a String
@@ -108,6 +112,9 @@ try (InputStream stream = ...) {
 During serialization, [Json5Element's](src/main/java/de/marhali/json5/Json5Element.java) are converted to their string representation so that they can be written to a file, for example.
 
 ```java
+import de.marhali.json5.Json5;
+import de.marhali.json5.Json5Element;
+
 Json5Element element = ...
 
 // Serialize to a String literal
@@ -165,7 +172,7 @@ For a detailed explanation see the [Json5Options](src/main/java/de/marhali/json5
 - duplicateBehaviour
 - indentFactor
 
-To get started using this library, `Json5Options.DEFAULT` may be a good starting point, as these are the recommended options.
+> To get started using this library, `Json5Options.DEFAULT` may be a good starting point, as these are the recommended options.
 
 ## License
 This library is released under the [Apache 2.0 license](LICENSE).
