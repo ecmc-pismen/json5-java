@@ -28,6 +28,7 @@ public class EcmaScriptIdentifier {
 
     /**
      * Checks whether the provided {@link String} is a valid ES5.1 IdentifierName.
+     * @param raw Input to check
      * @return true if valid identifier, otherwise false
      * @see <a href="https://262.ecma-international.org/5.1/#sec-7.6">https://262.ecma-international.org/5.1/#sec-7.6</a>
      */

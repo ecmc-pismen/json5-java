@@ -43,6 +43,8 @@ public final class Json5Primitive extends Json5Element {
 
     /**
      * Create a primitive containing a {@code null} value.
+     *
+     * @return New {@link Json5Null} value
      */
     public static Json5Null fromNull() {
         return new Json5Null();
@@ -52,6 +54,7 @@ public final class Json5Primitive extends Json5Element {
      * Create a primitive containing a boolean value.
      *
      * @param bool the value to create the primitive with.
+     * @return Json5Primitive containing the provided {@link Boolean} value
      */
     public static Json5Primitive fromBoolean(Boolean bool) {
         return new Json5Primitive(Objects.requireNonNull(bool));
@@ -60,6 +63,7 @@ public final class Json5Primitive extends Json5Element {
     /**
      * Create a primitive containing a {@link Instant} value.
      * @param instant the value to create the primitive with.
+     * @return Json5Primitive containing the provided {@link Instant} value
      * <p>
      * <i>This is an extension that is not compliant to the official Json5 spec.</i>
      */
@@ -73,6 +77,7 @@ public final class Json5Primitive extends Json5Element {
      * this method will ensure that the underlying number implementation is a {@link BigInteger}.
      * @param number The number
      * @param radix Radix base
+     * @return Json5Primitive containing the provided {@link Number} with specified radix base
      */
     public static Json5Primitive fromNumber(Number number, int radix) {
         Objects.requireNonNull(number);
@@ -89,6 +94,7 @@ public final class Json5Primitive extends Json5Element {
      * Create a primitive containing a decimal {@link Number} (radix base {@code 10}).
      *
      * @param number the value to create the primitive with.
+     * @return Json5Primitive containing the provided {@link Number} with radix base {@code 10}
      */
     public static Json5Primitive fromNumber(Number number) {
         return Json5Primitive.fromNumber(Objects.requireNonNull(number), 10);
@@ -100,6 +106,7 @@ public final class Json5Primitive extends Json5Element {
      * <p>
      * <i>This is an extension that is not compliant to the official Json5 spec.</i>
      * @param binaryString the value to create the primitive with.
+     * @return Json5Primitive containing the provided binary number with radix base {@code 2}
      */
     public static Json5Primitive fromBinaryString(String binaryString) {
         Objects.requireNonNull(binaryString);
@@ -127,6 +134,7 @@ public final class Json5Primitive extends Json5Element {
      * <p>
      * <i>This is an extension that is not compliant to the official Json5 spec.</i>
      * @param octalString the value to create the primitive with.
+     * @return Json5Primitive containing the provided octal number with radix base {@code 8}
      */
     public static Json5Primitive fromOctalString(String octalString) {
         Objects.requireNonNull(octalString);
@@ -152,6 +160,7 @@ public final class Json5Primitive extends Json5Element {
      * Create a primitive containing a binary number (radix base {@code 16}).
      * For example {@code +0x09af...}, {@code 0x09af...} or {@code -0x09af...}.
      * @param hexString the value to create the primitive with.
+     * @return Json5Primitive containing the provided hex number with radix base {@code 16}
      */
     public static Json5Primitive fromHexString(String hexString) {
         Objects.requireNonNull(hexString);
@@ -177,6 +186,7 @@ public final class Json5Primitive extends Json5Element {
      * Create a primitive containing a String value.
      *
      * @param string the value to create the primitive with.
+     * @return Json5Primitive containing the provided {@link String}
      */
     public static Json5Primitive fromString(String string) {
         return new Json5Primitive(Objects.requireNonNull(string));
@@ -187,6 +197,7 @@ public final class Json5Primitive extends Json5Element {
      * since Json5 only supports String.
      *
      * @param c the value to create the primitive with.
+     * @return Json5Primitive containing the provided {@link Character}
      */
     public static Json5Primitive fromCharacter(Character c) {
         // convert characters to strings since in Json5, characters are represented as a single

@@ -527,6 +527,7 @@ public final class Json5Options {
 
         /**
          * @see Json5Options#digitSeparatorStrategy
+         * @param digitSeparatorStrategy Strategy to apply
          * @return builder
          */
         public Builder digitSeparatorStrategy(DigitSeparatorStrategy digitSeparatorStrategy) {
@@ -536,6 +537,7 @@ public final class Json5Options {
 
         /**
          * @see Json5Options#duplicateBehaviour
+         * @param duplicateKeyStrategy Strategy to apply
          * @return builder
          */
         public Builder duplicateKeyStrategy(DuplicateKeyStrategy duplicateKeyStrategy) {
@@ -545,6 +547,7 @@ public final class Json5Options {
 
         /**
          * @see Json5Options#indentFactor
+         * @param indentFactor Indent factor to apply
          * @return builder
          */
         public Builder indentFactor(int indentFactor) {

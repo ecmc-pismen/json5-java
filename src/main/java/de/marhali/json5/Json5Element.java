@@ -80,6 +80,7 @@ public abstract class Json5Element {
 
     /**
      * Returns a deep copy of this element.
+     * @return Deep copy
      */
     public abstract Json5Element deepCopy();
 

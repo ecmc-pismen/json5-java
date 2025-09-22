@@ -111,6 +111,7 @@ public final class Json5Writer {
      * Checks if {@link Json5Options#isWriteComments()} is {@code true} and if the element has any comment assigned.
      * @param element Element target
      * @param depth Depth to use for writing
+     * @throws IOException If an I/O error occurs
      */
     public void writeComment(Json5Element element, int depth) throws IOException {
         if (!options.isWriteComments() || !element.hasComment()) {
