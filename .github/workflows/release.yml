@@ -7,7 +7,7 @@ on:
 
 jobs:
 
-  # Prepare and publish the library to Maven Central and GitHub Packages
+  # Prepare and publish the library to Maven Central
   release:
     name: Publish Library
     runs-on: ubuntu-latest
@@ -64,7 +64,7 @@ jobs:
 
       # Create a pull request
       - name: Create Pull Request
-        if: ${{ steps.properties.outputs.changelog != '' }}
+        if: ${{ github.event.release.body != '' }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
