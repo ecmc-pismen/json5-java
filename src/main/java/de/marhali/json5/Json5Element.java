@@ -53,6 +53,7 @@ public abstract class Json5Element {
 
     /**
      * Provides a check for verifying if this element has an associated comment.
+     *
      * @return true if this element has an associated comment, false otherwise.
      */
     public boolean hasComment() {
@@ -80,6 +81,7 @@ public abstract class Json5Element {
 
     /**
      * Returns a deep copy of this element.
+     *
      * @return Deep copy
      */
     public abstract Json5Element deepCopy();
@@ -187,9 +189,9 @@ public abstract class Json5Element {
      *
      * @return this element as a primitive boolean value.
      * @throws UnsupportedOperationException if this element is not a {@link Json5Primitive} or {@link
-     *     Json5Array}.
-     * @throws IllegalStateException if this element is of the type {@link Json5Array} but contains
-     *     more than a single element.
+     *                                       Json5Array}.
+     * @throws IllegalStateException         if this element is of the type {@link Json5Array} but contains
+     *                                       more than a single element.
      */
     public boolean getAsBoolean() {
         throw new UnsupportedOperationException(getClass().getSimpleName());
@@ -200,9 +202,9 @@ public abstract class Json5Element {
      *
      * @return this element as a primitive {@link Instant} value.
      * @throws UnsupportedOperationException if this element is not a {@link Json5Primitive} or {@link
-     *     Json5Array}.
-     * @throws IllegalStateException if this element is of the type {@link Json5Array} but contains
-     *     more than a single element.
+     *                                       Json5Array}.
+     * @throws IllegalStateException         if this element is of the type {@link Json5Array} but contains
+     *                                       more than a single element.
      */
     public Instant getAsInstant() {
         throw new UnsupportedOperationException(getClass().getSimpleName());
@@ -213,9 +215,9 @@ public abstract class Json5Element {
      *
      * @return this element as a {@link Number}.
      * @throws UnsupportedOperationException if this element is not a {@link Json5Primitive} or {@link
-     *     Json5Array}, or cannot be converted to a number.
-     * @throws IllegalStateException if this element is of the type {@link Json5Array} but contains
-     *     more than a single element.
+     *                                       Json5Array}, or cannot be converted to a number.
+     * @throws IllegalStateException         if this element is of the type {@link Json5Array} but contains
+     *                                       more than a single element.
      */
     public Number getAsNumber() {
         throw new UnsupportedOperationException(getClass().getSimpleName());
@@ -226,9 +228,9 @@ public abstract class Json5Element {
      *
      * @return this element as a {@link RadixNumber}.
      * @throws UnsupportedOperationException if this element is not a {@link Json5Primitive} or {@link
-     *     Json5Array}, or cannot be converted to a radix number.
-     * @throws IllegalStateException if this element is of the type {@link Json5Array} but contains
-     *     more than a single element.
+     *                                       Json5Array}, or cannot be converted to a radix number.
+     * @throws IllegalStateException         if this element is of the type {@link Json5Array} but contains
+     *                                       more than a single element.
      */
     public RadixNumber getAsRadixNumber() {
         throw new UnsupportedOperationException(getClass().getSimpleName());
@@ -239,9 +241,9 @@ public abstract class Json5Element {
      *
      * @return this element as a string value.
      * @throws UnsupportedOperationException if this element is not a {@link Json5Primitive} or {@link
-     *     Json5Array}.
-     * @throws IllegalStateException if this element is of the type {@link Json5Array} but contains
-     *     more than a single element.
+     *                                       Json5Array}.
+     * @throws IllegalStateException         if this element is of the type {@link Json5Array} but contains
+     *                                       more than a single element.
      */
     public String getAsString() {
         throw new UnsupportedOperationException(getClass().getSimpleName());
@@ -252,10 +254,10 @@ public abstract class Json5Element {
      *
      * @return this element as a primitive double value.
      * @throws UnsupportedOperationException if this element is not a {@link Json5Primitive} or {@link
-     *     Json5Array}.
-     * @throws NumberFormatException if the value contained is not a valid double.
-     * @throws IllegalStateException if this element is of the type {@link Json5Array} but contains
-     *     more than a single element.
+     *                                       Json5Array}.
+     * @throws NumberFormatException         if the value contained is not a valid double.
+     * @throws IllegalStateException         if this element is of the type {@link Json5Array} but contains
+     *                                       more than a single element.
      */
     public double getAsDouble() {
         throw new UnsupportedOperationException(getClass().getSimpleName());
@@ -266,10 +268,10 @@ public abstract class Json5Element {
      *
      * @return this element as a primitive float value.
      * @throws UnsupportedOperationException if this element is not a {@link Json5Primitive} or {@link
-     *     Json5Array}.
-     * @throws NumberFormatException if the value contained is not a valid float.
-     * @throws IllegalStateException if this element is of the type {@link Json5Array} but contains
-     *     more than a single element.
+     *                                       Json5Array}.
+     * @throws NumberFormatException         if the value contained is not a valid float.
+     * @throws IllegalStateException         if this element is of the type {@link Json5Array} but contains
+     *                                       more than a single element.
      */
     public float getAsFloat() {
         throw new UnsupportedOperationException(getClass().getSimpleName());
@@ -280,10 +282,10 @@ public abstract class Json5Element {
      *
      * @return this element as a primitive long value.
      * @throws UnsupportedOperationException if this element is not a {@link Json5Primitive} or {@link
-     *     Json5Array}.
-     * @throws NumberFormatException if the value contained is not a valid long.
-     * @throws IllegalStateException if this element is of the type {@link Json5Array} but contains
-     *     more than a single element.
+     *                                       Json5Array}.
+     * @throws NumberFormatException         if the value contained is not a valid long.
+     * @throws IllegalStateException         if this element is of the type {@link Json5Array} but contains
+     *                                       more than a single element.
      */
     public long getAsLong() {
         throw new UnsupportedOperationException(getClass().getSimpleName());
@@ -294,10 +296,10 @@ public abstract class Json5Element {
      *
      * @return this element as a primitive integer value.
      * @throws UnsupportedOperationException if this element is not a {@link Json5Primitive} or {@link
-     *     Json5Array}.
-     * @throws NumberFormatException if the value contained is not a valid integer.
-     * @throws IllegalStateException if this element is of the type {@link Json5Array} but contains
-     *     more than a single element.
+     *                                       Json5Array}.
+     * @throws NumberFormatException         if the value contained is not a valid integer.
+     * @throws IllegalStateException         if this element is of the type {@link Json5Array} but contains
+     *                                       more than a single element.
      */
     public int getAsInt() {
         throw new UnsupportedOperationException(getClass().getSimpleName());
@@ -308,10 +310,10 @@ public abstract class Json5Element {
      *
      * @return this element as a primitive byte value.
      * @throws UnsupportedOperationException if this element is not a {@link Json5Primitive} or {@link
-     *     Json5Array}.
-     * @throws NumberFormatException if the value contained is not a valid byte.
-     * @throws IllegalStateException if this element is of the type {@link Json5Array} but contains
-     *     more than a single element.
+     *                                       Json5Array}.
+     * @throws NumberFormatException         if the value contained is not a valid byte.
+     * @throws IllegalStateException         if this element is of the type {@link Json5Array} but contains
+     *                                       more than a single element.
      */
     public byte getAsByte() {
         throw new UnsupportedOperationException(getClass().getSimpleName());
@@ -322,10 +324,10 @@ public abstract class Json5Element {
      *
      * @return this element as a {@link BigDecimal}.
      * @throws UnsupportedOperationException if this element is not a {@link Json5Primitive} or {@link
-     *     Json5Array}.
-     * @throws NumberFormatException if this element is not a valid {@link BigDecimal}.
-     * @throws IllegalStateException if this element is of the type {@link Json5Array} but contains
-     *     more than a single element.
+     *                                       Json5Array}.
+     * @throws NumberFormatException         if this element is not a valid {@link BigDecimal}.
+     * @throws IllegalStateException         if this element is of the type {@link Json5Array} but contains
+     *                                       more than a single element.
      */
     public BigDecimal getAsBigDecimal() {
         throw new UnsupportedOperationException(getClass().getSimpleName());
@@ -336,10 +338,10 @@ public abstract class Json5Element {
      *
      * @return this element as a {@link BigInteger}.
      * @throws UnsupportedOperationException if this element is not a {@link Json5Primitive} or {@link
-     *     Json5Array}.
-     * @throws NumberFormatException if this element is not a valid {@link BigInteger}.
-     * @throws IllegalStateException if this element is of the type {@link Json5Array} but contains
-     *     more than a single element.
+     *                                       Json5Array}.
+     * @throws NumberFormatException         if this element is not a valid {@link BigInteger}.
+     * @throws IllegalStateException         if this element is of the type {@link Json5Array} but contains
+     *                                       more than a single element.
      */
     public BigInteger getAsBigInteger() {
         throw new UnsupportedOperationException(getClass().getSimpleName());
@@ -350,10 +352,10 @@ public abstract class Json5Element {
      *
      * @return this element as a primitive short value.
      * @throws UnsupportedOperationException if this element is not a {@link Json5Primitive} or {@link
-     *     Json5Array}.
-     * @throws NumberFormatException if the value contained is not a valid short.
-     * @throws IllegalStateException if this element is of the type {@link Json5Array} but contains
-     *     more than a single element.
+     *                                       Json5Array}.
+     * @throws NumberFormatException         if the value contained is not a valid short.
+     * @throws IllegalStateException         if this element is of the type {@link Json5Array} but contains
+     *                                       more than a single element.
      */
     public short getAsShort() {
         throw new UnsupportedOperationException(getClass().getSimpleName());
@@ -363,12 +365,13 @@ public abstract class Json5Element {
      * Convenience method to get this element as a primitive binary number (radix base {@code 2}) value.
      * <p>
      * <i>This is an extension that is not compliant to the official Json5 spec.</i>
+     *
      * @return this element as a primitive binary number value string.
      * @throws UnsupportedOperationException if this element is not a {@link Json5Primitive} or {@link
-     *     Json5Array}.
-     * @throws NumberFormatException if the value contained is not a valid short.
-     * @throws IllegalStateException if this element is of the type {@link Json5Array} but contains
-     *     more than a single element.
+     *                                       Json5Array}.
+     * @throws NumberFormatException         if the value contained is not a valid short.
+     * @throws IllegalStateException         if this element is of the type {@link Json5Array} but contains
+     *                                       more than a single element.
      */
     public String getAsBinaryString() {
         throw new UnsupportedOperationException(getClass().getSimpleName());
@@ -379,12 +382,13 @@ public abstract class Json5Element {
      * Convenience method to get this element as a primitive octal number (radix base {@code 8}) value.
      * <p>
      * <i>This is an extension that is not compliant to the official Json5 spec.</i>
+     *
      * @return this element as a primitive octal number value string.
      * @throws UnsupportedOperationException if this element is not a {@link Json5Primitive} or {@link
-     *     Json5Array}.
-     * @throws NumberFormatException if the value contained is not a valid short.
-     * @throws IllegalStateException if this element is of the type {@link Json5Array} but contains
-     *     more than a single element.
+     *                                       Json5Array}.
+     * @throws NumberFormatException         if the value contained is not a valid short.
+     * @throws IllegalStateException         if this element is of the type {@link Json5Array} but contains
+     *                                       more than a single element.
      */
     public String getAsOctalString() {
         throw new UnsupportedOperationException(getClass().getSimpleName());
@@ -393,12 +397,13 @@ public abstract class Json5Element {
 
     /**
      * Convenience method to get this element as a primitive hex number (radix base {@code 16}) value.
+     *
      * @return this element as a primitive hex number value string.
      * @throws UnsupportedOperationException if this element is not a {@link Json5Primitive} or {@link
-     *     Json5Array}.
-     * @throws NumberFormatException if the value contained is not a valid short.
-     * @throws IllegalStateException if this element is of the type {@link Json5Array} but contains
-     *     more than a single element.
+     *                                       Json5Array}.
+     * @throws NumberFormatException         if the value contained is not a valid short.
+     * @throws IllegalStateException         if this element is of the type {@link Json5Array} but contains
+     *                                       more than a single element.
      */
     public String getAsHexString() {
         throw new UnsupportedOperationException(getClass().getSimpleName());
@@ -406,6 +411,7 @@ public abstract class Json5Element {
 
     /**
      * Converts this element to a Json5 string using the provided configuration options for formatting.
+     *
      * @param options Configuration options.
      * @return Json5 string representation of this element.
      */

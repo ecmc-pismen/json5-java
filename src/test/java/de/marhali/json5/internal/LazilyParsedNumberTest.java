@@ -82,7 +82,7 @@ class LazilyParsedNumberTest {
     void equals_and_hashCode_behave() {
         LazilyParsedNumber a1 = new LazilyParsedNumber("42");
         LazilyParsedNumber a2 = new LazilyParsedNumber("42");
-        LazilyParsedNumber b  = new LazilyParsedNumber("043");
+        LazilyParsedNumber b = new LazilyParsedNumber("043");
 
         assertEquals(a1, a1);              // reflexive
         assertEquals(a1, a2);              // same string content

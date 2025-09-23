@@ -47,7 +47,9 @@ import java.util.Objects;
 public final class Json5Array extends Json5Element implements Iterable<Json5Element> {
     private final ArrayList<Json5Element> elements;
 
-    /** Creates an empty Json5Array. */
+    /**
+     * Creates an empty Json5Array.
+     */
     public Json5Array() {
         elements = new ArrayList<>();
     }
@@ -148,7 +150,7 @@ public final class Json5Array extends Json5Element implements Iterable<Json5Elem
     /**
      * Replaces the element at the specified position in this array with the specified element.
      *
-     * @param index index of the element to replace
+     * @param index   index of the element to replace
      * @param element element to be stored at the specified position
      * @return the element previously at the specified position
      * @throws IndexOutOfBoundsException if the specified index is outside the array bounds
@@ -184,8 +186,8 @@ public final class Json5Array extends Json5Element implements Iterable<Json5Elem
     /**
      * Returns true if this array contains the specified element.
      *
-     * @return true if this array contains the specified element.
      * @param element whose presence in this array is to be tested
+     * @return true if this array contains the specified element.
      */
     public boolean contains(Json5Element element) {
         return elements.contains(element);
@@ -226,7 +228,7 @@ public final class Json5Array extends Json5Element implements Iterable<Json5Elem
      * @param i the index of the element that is being sought.
      * @return the element present at the i-th index.
      * @throws IndexOutOfBoundsException if {@code i} is negative or greater than or equal to the
-     *     {@link #size()} of the array.
+     *                                   {@link #size()} of the array.
      */
     public Json5Element get(int i) {
         return elements.get(i);

@@ -22,12 +22,14 @@ package de.marhali.json5.internal;
 public class EcmaScriptIdentifier {
     // Zero Width Non-Joiner / Joiner
     private static final int ZWNJ = 0x200C;
-    private static final int ZWJ  = 0x200D;
+    private static final int ZWJ = 0x200D;
 
-    private EcmaScriptIdentifier() {}
+    private EcmaScriptIdentifier() {
+    }
 
     /**
      * Checks whether the provided {@link String} is a valid ES5.1 IdentifierName.
+     *
      * @param raw Input to check
      * @return true if valid identifier, otherwise false
      * @see <a href="https://262.ecma-international.org/5.1/#sec-7.6">https://262.ecma-international.org/5.1/#sec-7.6</a>
@@ -90,11 +92,12 @@ public class EcmaScriptIdentifier {
 
     /**
      * Decodes ES5-style Unicode-Escapes \\uXXXX inside a Identifier.
+     *
      * @return {@code null}, if an escape is syntactically invalid
      */
     private static String decodeEs5UnicodeEscapes(String s) {
         StringBuilder out = new StringBuilder(s.length());
-        for (int i = 0; i < s.length();) {
+        for (int i = 0; i < s.length(); ) {
             char ch = s.charAt(i);
             if (ch == '\\') {
                 if (i + 1 < s.length() && s.charAt(i + 1) == 'u') {

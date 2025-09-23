@@ -82,8 +82,8 @@ public final class LinkedTreeMap<K, V> extends AbstractMap<K, V> implements Seri
      * Create a tree map ordered by {@code comparator}. This map's keys may only be null if {@code
      * comparator} permits.
      *
-     * @param comparator the comparator to order elements with, or {@code null} to use the natural
-     *     ordering.
+     * @param comparator      the comparator to order elements with, or {@code null} to use the natural
+     *                        ordering.
      * @param allowNullValues whether {@code null} is allowed as entry value
      */
     // unsafe! if comparator is null, this assumes K is comparable
@@ -393,7 +393,9 @@ public final class LinkedTreeMap<K, V> extends AbstractMap<K, V> implements Seri
         }
     }
 
-    /** Rotates the subtree so that its root's right child is the new root. */
+    /**
+     * Rotates the subtree so that its root's right child is the new root.
+     */
     private void rotateLeft(Node<K, V> root) {
         Node<K, V> left = root.left;
         Node<K, V> pivot = root.right;
@@ -418,7 +420,9 @@ public final class LinkedTreeMap<K, V> extends AbstractMap<K, V> implements Seri
         pivot.height = Math.max(root.height, pivotRight != null ? pivotRight.height : 0) + 1;
     }
 
-    /** Rotates the subtree so that its root's left child is the new root. */
+    /**
+     * Rotates the subtree so that its root's left child is the new root.
+     */
     private void rotateRight(Node<K, V> root) {
         Node<K, V> pivot = root.left;
         Node<K, V> right = root.right;
@@ -475,14 +479,18 @@ public final class LinkedTreeMap<K, V> extends AbstractMap<K, V> implements Seri
         V value;
         int height;
 
-        /** Create the header entry */
+        /**
+         * Create the header entry
+         */
         Node(boolean allowNullValue) {
             key = null;
             this.allowNullValue = allowNullValue;
             next = prev = this;
         }
 
-        /** Create a regular entry */
+        /**
+         * Create a regular entry
+         */
         Node(boolean allowNullValue, Node<K, V> parent, K key, Node<K, V> next, Node<K, V> prev) {
             this.parent = parent;
             this.key = key;
@@ -534,7 +542,9 @@ public final class LinkedTreeMap<K, V> extends AbstractMap<K, V> implements Seri
             return key + "=" + value;
         }
 
-        /** Returns the first node in this subtree. */
+        /**
+         * Returns the first node in this subtree.
+         */
         public Node<K, V> first() {
             Node<K, V> node = this;
             Node<K, V> child = node.left;
@@ -545,7 +555,9 @@ public final class LinkedTreeMap<K, V> extends AbstractMap<K, V> implements Seri
             return node;
         }
 
-        /** Returns the last node in this subtree. */
+        /**
+         * Returns the last node in this subtree.
+         */
         public Node<K, V> last() {
             Node<K, V> node = this;
             Node<K, V> child = node.right;
@@ -562,7 +574,8 @@ public final class LinkedTreeMap<K, V> extends AbstractMap<K, V> implements Seri
         Node<K, V> lastReturned = null;
         int expectedModCount = modCount;
 
-        LinkedTreeMapIterator() {}
+        LinkedTreeMapIterator() {
+        }
 
         @Override
         @SuppressWarnings("ReferenceEquality")
@@ -672,6 +685,7 @@ public final class LinkedTreeMap<K, V> extends AbstractMap<K, V> implements Seri
      * If somebody is unlucky enough to have to serialize one of these, serialize it as a
      * LinkedHashMap so that they won't need Gson on the other side to deserialize it. Using
      * serialization defeats our DoS defence, so most apps shouldn't use it.
+     *
      * @return Object
      * @throws ObjectStreamException If an I/O error occurs
      */

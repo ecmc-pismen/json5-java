@@ -30,13 +30,13 @@ import java.util.function.Function;
  * serialize Json5 data according to the specification and the configured {@link Json5Options options}.
  *
  * <p>
- *     You can create a Json5 instance by invoking {@link #Json5(Json5Options)}
- *     or by using {@link #builder(Function)}.
- *     </p>
+ * You can create a Json5 instance by invoking {@link #Json5(Json5Options)}
+ * or by using {@link #builder(Function)}.
+ * </p>
  *
  * <p>
- *     This class contains several utility methods to parse and serialize json5 data by passing
- *     {@link Reader}, {@link Writer} or simple {@link String} instances.
+ * This class contains several utility methods to parse and serialize json5 data by passing
+ * {@link Reader}, {@link Writer} or simple {@link String} instances.
  * </p>
  *
  * <pre>
@@ -86,6 +86,7 @@ public final class Json5 {
 
     /**
      * Constructs a new json5 instance by using the {@link Json5Options#builder()}.
+     *
      * @param builder Options builder
      * @return Built options
      */
@@ -97,6 +98,7 @@ public final class Json5 {
 
     /**
      * Constructs a new json5 instance with custom configuration for parsing and serialization.
+     *
      * @param options Configuration options
      * @see #builder(Function)
      */
@@ -106,6 +108,7 @@ public final class Json5 {
 
     /**
      * Constructs a json5 instance by using {@link Json5Options#DEFAULT} as configuration.
+     *
      * @see #Json5(Json5Options)
      */
     public Json5() {
@@ -115,6 +118,7 @@ public final class Json5 {
     /**
      * Parses the data from the {@link InputStream} into a tree of {@link Json5Element}'s.
      * <p><b>Note:</b> The stream must be closed after operation</p>
+     *
      * @param in Can be any applicable {@link InputStream}
      * @return Parsed json5 tree. Can be {@code null} if the provided stream does not contain any data
      * @see #parse(Reader)
@@ -127,6 +131,7 @@ public final class Json5 {
     /**
      * Parses the provided read-stream into a tree of {@link Json5Element}'s.
      * <p><b>Note:</b> The reader must be closed after operation</p>
+     *
      * @param reader Can be any applicable {@link Reader}
      * @return Parsed json5 tree. Can be {@code null} if the provided stream does not contain any data
      * @see Json5Parser#parse(Json5Lexer)
@@ -140,6 +145,7 @@ public final class Json5 {
 
     /**
      * Parses the provided json5-encoded {@link String} into a parse tree of {@link Json5Element}'s.
+     *
      * @param string Json5 encoded {@link String}
      * @return Parsed json5 tree. Can be {@code null} if the provided {@link String} is empty
      * @see #parse(Reader)
@@ -156,8 +162,9 @@ public final class Json5 {
     /**
      * Encodes the provided element into its character literal representation by using an output-stream.
      * <p><b>Note:</b> The stream must be closed after operation ({@link OutputStream#close()})!</p>
+     *
      * @param element {@link Json5Element} to serialize
-     * @param out Can be any applicable {@link OutputStream}
+     * @param out     Can be any applicable {@link OutputStream}
      * @throws IOException If an I/O error occurs
      * @see #serialize(Json5Element, Writer)
      */
@@ -171,8 +178,9 @@ public final class Json5 {
     /**
      * Encodes the provided element into its character literal representation by using a write-stream.
      * <p><b>Note:</b> The writer must be closed after operation ({@link Writer#close()})!</p>
+     *
      * @param element {@link Json5Element} to serialize
-     * @param writer Can be any applicable {@link Writer}
+     * @param writer  Can be any applicable {@link Writer}
      * @throws IOException If an I/O error occurs
      * @see Json5Writer#write(Json5Element)
      */
@@ -186,6 +194,7 @@ public final class Json5 {
 
     /**
      * Encodes the provided element into its character literal representation.
+     *
      * @param element {@link Json5Element} to serialize
      * @return Json5 encoded {@link String}
      * @throws IOException If an I/O error occurs

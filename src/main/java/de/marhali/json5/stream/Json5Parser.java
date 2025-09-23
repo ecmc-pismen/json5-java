@@ -43,11 +43,13 @@ import java.util.Set;
  */
 public final class Json5Parser {
 
-    private Json5Parser() {}
+    private Json5Parser() {
+    }
 
     /**
      * Parses the specified {@link Json5Lexer lexer} into a parse tree of {@link Json5Element}'s.
      * Thereby it does not matter if the provided root element is an array or object.
+     *
      * @param lexer Tokenized json5 data
      * @return a parse tree of {@link Json5Element}'s corresponding to the specified JSON5 or {@code null} if lexer does not provide any data
      */
@@ -83,6 +85,7 @@ public final class Json5Parser {
     /**
      * Parses the specified {@link Json5Lexer lexer} into a parse tree of an {@link Json5Object}.
      * If the provided data does not correspond to a {@link Json5Object} a {@link Json5Exception} will be thrown.
+     *
      * @param lexer Tokenized json5 data.
      * @return a parse tree of {@link Json5Object} corresponding to the specified JSON5.
      * @see #parse(Json5Lexer)
@@ -90,7 +93,7 @@ public final class Json5Parser {
     public static Json5Object parseObject(Json5Lexer lexer) {
         Objects.requireNonNull(lexer);
 
-        if(lexer.nextClean() != '{') {
+        if (lexer.nextClean() != '{') {
             throw lexer.syntaxError("A Json5Object must begin with '{'");
         }
 
@@ -103,11 +106,11 @@ public final class Json5Parser {
         String comment;
         String key;
 
-        while(true) {
+        while (true) {
             control = lexer.nextClean();
             comment = lexer.consumeComment();
 
-            switch(control) {
+            switch (control) {
                 case 0:
                     throw lexer.syntaxError("A Json5Object must end with '}'");
                 case '}':
@@ -167,6 +170,7 @@ public final class Json5Parser {
     /**
      * Parses the specified {@link Json5Lexer lexer} into a parse tree of an {@link Json5Array}.
      * If the provided data does not correspond to a json array a {@link Json5Exception} will be thrown.
+     *
      * @param lexer Tokenized json5 data.
      * @return a parse tree of {@link Json5Array} corresponding to the specified JSON5.
      * @see #parse(Json5Lexer)

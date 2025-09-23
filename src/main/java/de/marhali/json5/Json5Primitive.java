@@ -62,6 +62,7 @@ public final class Json5Primitive extends Json5Element {
 
     /**
      * Create a primitive containing a {@link Instant} value.
+     *
      * @param instant the value to create the primitive with.
      * @return Json5Primitive containing the provided {@link Instant} value
      * <p>
@@ -75,8 +76,9 @@ public final class Json5Primitive extends Json5Element {
      * Creates a primitive containing a {@link Number} with specified radix base.
      * If a radix base of {@code 2}, {@code 8} or {@code 16} is set,
      * this method will ensure that the underlying number implementation is a {@link BigInteger}.
+     *
      * @param number The number
-     * @param radix Radix base
+     * @param radix  Radix base
      * @return Json5Primitive containing the provided {@link Number} with specified radix base
      */
     public static Json5Primitive fromNumber(Number number, int radix) {
@@ -105,6 +107,7 @@ public final class Json5Primitive extends Json5Element {
      * For example {@code +0b1010...}, {@code 0b1010...} or {@code -0b1010...}.
      * <p>
      * <i>This is an extension that is not compliant to the official Json5 spec.</i>
+     *
      * @param binaryString the value to create the primitive with.
      * @return Json5Primitive containing the provided binary number with radix base {@code 2}
      */
@@ -133,6 +136,7 @@ public final class Json5Primitive extends Json5Element {
      * For example {@code +0o107...}, {@code 0o107...} or {@code -0o107...}.
      * <p>
      * <i>This is an extension that is not compliant to the official Json5 spec.</i>
+     *
      * @param octalString the value to create the primitive with.
      * @return Json5Primitive containing the provided octal number with radix base {@code 8}
      */
@@ -159,6 +163,7 @@ public final class Json5Primitive extends Json5Element {
     /**
      * Create a primitive containing a binary number (radix base {@code 16}).
      * For example {@code +0x09af...}, {@code 0x09af...} or {@code -0x09af...}.
+     *
      * @param hexString the value to create the primitive with.
      * @return Json5Primitive containing the provided hex number with radix base {@code 16}
      */
@@ -207,6 +212,7 @@ public final class Json5Primitive extends Json5Element {
 
     /**
      * Internal constructor with primitive value
+     *
      * @param value Internal value
      */
     private Json5Primitive(Object value) {
@@ -266,7 +272,7 @@ public final class Json5Primitive extends Json5Element {
             var radixNumber = getAsRadixNumber();
             var number = radixNumber.getNumber();
 
-            if(number instanceof Byte || number instanceof Short || number instanceof Integer || number instanceof Long)
+            if (number instanceof Byte || number instanceof Short || number instanceof Integer || number instanceof Long)
                 return Instant.ofEpochSecond((long) value);
 
             if (number instanceof BigInteger)
@@ -293,7 +299,7 @@ public final class Json5Primitive extends Json5Element {
     }
 
     public int getNumberRadix() {
-       return getAsRadixNumber().getRadix();
+        return getAsRadixNumber().getRadix();
     }
 
     public boolean isBinaryNumber() {

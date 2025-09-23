@@ -47,7 +47,8 @@ public final class Json5Object extends Json5Element {
     /**
      * Creates a new instance of a {@link Json5Object}.
      */
-    public Json5Object() {}
+    public Json5Object() {
+    }
 
     /**
      * Creates a deep copy of this element and all its children.
@@ -68,7 +69,7 @@ public final class Json5Object extends Json5Element {
      * {@link Json5Element Json5Elements} rooted at this node.
      *
      * @param property name of the member.
-     * @param value the member object.
+     * @param value    the member object.
      */
     public void add(String property, Json5Element value) {
         members.put(property, value == null ? Json5Primitive.fromNull() : value);
@@ -79,7 +80,7 @@ public final class Json5Object extends Json5Element {
      *
      * @param property name of the member that should be removed.
      * @return the {@link Json5Element} object that is being removed, or {@code null} if no member with
-     *     this name exists.
+     * this name exists.
      */
     public Json5Element remove(String property) {
         return members.remove(property);
@@ -90,7 +91,7 @@ public final class Json5Object extends Json5Element {
      * Json5Primitive} of Character.
      *
      * @param property name of the member.
-     * @param value the char value associated with the member.
+     * @param value    the char value associated with the member.
      */
     public void addProperty(String property, Character value) {
         add(property, value == null ? Json5Primitive.fromNull() : Json5Primitive.fromCharacter(value));
@@ -101,7 +102,7 @@ public final class Json5Object extends Json5Element {
      * Json5Primitive} of String.
      *
      * @param property name of the member.
-     * @param value the string value associated with the member.
+     * @param value    the string value associated with the member.
      */
     public void addProperty(String property, String value) {
         add(property, value == null ? Json5Primitive.fromNull() : Json5Primitive.fromString(value));
@@ -112,7 +113,7 @@ public final class Json5Object extends Json5Element {
      * Json5Primitive} of Number.
      *
      * @param property name of the member.
-     * @param value the number value associated with the member.
+     * @param value    the number value associated with the member.
      */
     public void addProperty(String property, Number value) {
         add(property, value == null ? Json5Primitive.fromNull() : Json5Primitive.fromNumber(value));
@@ -127,7 +128,7 @@ public final class Json5Object extends Json5Element {
      * Json5Primitive} of {@link Instant}.
      *
      * @param property name of the member.
-     * @param value the {@link Instant} value associated with the member.
+     * @param value    the {@link Instant} value associated with the member.
      */
     public void addProperty(String property, Instant value) {
         add(property, value == null ? Json5Primitive.fromNull() : Json5Primitive.fromInstant(value));
@@ -138,7 +139,7 @@ public final class Json5Object extends Json5Element {
      * Json5Primitive} of Boolean.
      *
      * @param property name of the member.
-     * @param value the boolean value associated with the member.
+     * @param value    the boolean value associated with the member.
      */
     public void addProperty(String property, Boolean value) {
         add(property, value == null ? Json5Primitive.fromNull() : Json5Primitive.fromBoolean(value));
@@ -206,7 +207,7 @@ public final class Json5Object extends Json5Element {
      *
      * @param memberName name of the member being requested.
      * @return the {@code Json5Primitive} corresponding to the specified member, or {@code null} if no
-     *     member with this name exists.
+     * member with this name exists.
      * @throws ClassCastException if the member is not of type {@code Json5Primitive}.
      */
     public Json5Primitive getAsJson5Primitive(String memberName) {
@@ -218,7 +219,7 @@ public final class Json5Object extends Json5Element {
      *
      * @param memberName name of the member being requested.
      * @return the {@code Json5Array} corresponding to the specified member, or {@code null} if no
-     *     member with this name exists.
+     * member with this name exists.
      * @throws ClassCastException if the member is not of type {@code Json5Array}.
      */
     public Json5Array getAsJson5Array(String memberName) {
@@ -230,7 +231,7 @@ public final class Json5Object extends Json5Element {
      *
      * @param memberName name of the member being requested.
      * @return the {@code Json5Object} corresponding to the specified member, or {@code null} if no
-     *     member with this name exists.
+     * member with this name exists.
      * @throws ClassCastException if the member is not of type {@code Json5Object}.
      */
     public Json5Object getAsJson5Object(String memberName) {

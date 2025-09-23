@@ -8,7 +8,8 @@ import java.math.BigInteger;
  * when extremely large numbers are used.
  */
 public class NumberLimits {
-    private NumberLimits() {}
+    private NumberLimits() {
+    }
 
     private static final int MAX_NUMBER_STRING_LENGTH = 10_000;
 

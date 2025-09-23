@@ -40,8 +40,8 @@ public class TestResourceHelper {
             }
 
             return Optional.ofNullable(buf.toString(StandardCharsets.UTF_8))
-                .map(s->s.replace("\r\n","\n"))
-                .map(s->s.replace("\r","\n"))
+                .map(s -> s.replace("\r\n", "\n"))
+                .map(s -> s.replace("\r", "\n"))
                 .orElse(null);
         }
     }

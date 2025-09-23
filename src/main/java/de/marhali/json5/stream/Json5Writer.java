@@ -51,8 +51,9 @@ public final class Json5Writer {
     /**
      * Creates a new instance that writes a JSON5-encoded stream to {@code writer}.
      * <p><b>Note:</b> The writer must be closed after operation ({@link Writer#close()})!</p>
+     *
      * @param options Parsing and serialization options
-     * @param writer Output stream. For the best performance, use a {@link java.io.BufferedWriter}.
+     * @param writer  Output stream. For the best performance, use a {@link java.io.BufferedWriter}.
      */
     public Json5Writer(Json5Options options, Writer writer) {
         Objects.requireNonNull(options);
@@ -67,6 +68,7 @@ public final class Json5Writer {
      * and the configured options. The element can be any json5 element. All child trees will be included.
      * This function writes with depth {@code 0} and expects a root element.
      * For nested elements, see the other write methods.
+     *
      * @param element Element to encode
      * @throws IOException If an I/O error occurs
      * @see #Json5Writer(Json5Options, Writer) Configuration options
@@ -79,8 +81,9 @@ public final class Json5Writer {
     /**
      * Encodes and writes the provided {@link Json5Element} into json5 according to the specification
      * and the configured options. The element can be any json5 element. All child trees will be included.
+     *
      * @param element Element to encode
-     * @param depth Depth of the current Json5 tree. Root node is {@code 0}. Counts {@code +1} on every child element.
+     * @param depth   Depth of the current Json5 tree. Root node is {@code 0}. Counts {@code +1} on every child element.
      * @throws IOException If an I/O error occurs
      * @see #Json5Writer(Json5Options, Writer) Configuration options
      * @see #write(Json5Element)
@@ -98,7 +101,7 @@ public final class Json5Writer {
             writePrimitive(element.getAsJson5Primitive());
         } else {
             throw new UnsupportedOperationException("Unknown json element with type class "
-                    + element.getClass().getName());
+                + element.getClass().getName());
         }
 
         if (depth == 0 && options.isInsertFinalNewline()) {
@@ -109,8 +112,9 @@ public final class Json5Writer {
     /**
      * Writes any associated comments for the provided {@link Json5Element}.
      * Checks if {@link Json5Options#isWriteComments()} is {@code true} and if the element has any comment assigned.
+     *
      * @param element Element target
-     * @param depth Depth to use for writing
+     * @param depth   Depth to use for writing
      * @throws IOException If an I/O error occurs
      */
     public void writeComment(Json5Element element, int depth) throws IOException {
@@ -150,6 +154,7 @@ public final class Json5Writer {
 
     /**
      * Writes the equivalent of a {@link de.marhali.json5.Json5Null}({@code null}) value.
+     *
      * @throws IOException If an I/O error occurs.
      */
     public void writeNull() throws IOException {
@@ -158,6 +163,7 @@ public final class Json5Writer {
 
     /**
      * Writes the provided primitive to the stream and encodes it if necessary.
+     *
      * @param primitive Primitive value.
      * @throws IOException If an I/O error occurs.
      */
@@ -182,8 +188,9 @@ public final class Json5Writer {
 
     /**
      * Writes the provided {@link Json5Object} to the stream.
+     *
      * @param object Object to encode
-     * @param depth Depth to use for writing
+     * @param depth  Depth to use for writing
      * @throws IOException If an I/O error occurs.
      * @see #write(Json5Element)
      */
@@ -206,7 +213,7 @@ public final class Json5Writer {
             index++;
 
             if (options.getIndentFactor() > 0) {
-               writer.append("\n");
+                writer.append("\n");
             }
 
             writeComment(entry.getValue(), childDepth);
@@ -235,6 +242,7 @@ public final class Json5Writer {
 
     /**
      * Writes the provided {@link Json5Array} to the stream.
+     *
      * @param array Array to encode
      * @param depth Depth to use for writing
      * @throws IOException If an I/O error occurs.
@@ -272,15 +280,16 @@ public final class Json5Writer {
             }
         }
 
-        if(options.getIndentFactor() > 0)
+        if (options.getIndentFactor() > 0)
             writer.append('\n').append(indent);
 
         writer.append(']');
     }
+
     private String applyNumberSeparator(String numberString, int numberRadix, char separator) {
         StringBuilder sb = new StringBuilder(numberString);
 
-        boolean hasSign = numberString.startsWith("+")  || numberString.startsWith("-");
+        boolean hasSign = numberString.startsWith("+") || numberString.startsWith("-");
         int offset, separatorOffset;
 
         switch (numberRadix) {
@@ -339,6 +348,7 @@ public final class Json5Writer {
 
     /**
      * Quotes the provided string according to the json5 <a href="https://spec.json5.org/#strings">specification</a>.
+     *
      * @param string String to quote
      * @return quoted string
      */
@@ -356,13 +366,13 @@ public final class Json5Writer {
         for (int i = 0, n = string.length(); i < n; ++i) {
             char c = string.charAt(i);
 
-            if(c == quote) {
+            if (c == quote) {
                 quoted.append('\\');
                 quoted.append(c);
                 continue;
             }
 
-            switch(c) {
+            switch (c) {
                 case '\\':
                     quoted.append("\\\\");
                     break;
@@ -389,7 +399,7 @@ public final class Json5Writer {
 
                     if (!ascii) {
                         // escape non-graphical characters (https://www.unicode.org/versions/Unicode13.0.0/ch02.pdf#G286941)
-                        switch(Character.getType(c)) {
+                        switch (Character.getType(c)) {
                             case Character.FORMAT:
                             case Character.LINE_SEPARATOR:
                             case Character.PARAGRAPH_SEPARATOR:
@@ -402,14 +412,12 @@ public final class Json5Writer {
                             default:
                                 break;
                         }
-                    }
-                    else unicode = c > 0x7F;
+                    } else unicode = c > 0x7F;
 
-                    if(unicode) {
+                    if (unicode) {
                         quoted.append("\\u");
                         quoted.append(String.format("%04X", (int) c));
-                    }
-                    else quoted.append(c);
+                    } else quoted.append(c);
             }
         }
 

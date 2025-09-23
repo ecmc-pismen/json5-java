@@ -25,7 +25,8 @@ package de.marhali.json5;
  * @author Marcel Haßlinger
  */
 public final class Json5Null extends Json5Element {
-    public Json5Null() {}
+    public Json5Null() {
+    }
 
     @Override
     public Json5Element deepCopy() {

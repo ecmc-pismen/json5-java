@@ -96,6 +96,7 @@ public class Json5Lexer {
     /**
      * Constructs a new lexer from a specific {@link Reader}.
      * <p><b>Note:</b> The reader must be closed after operation ({@link Reader#close()})!</p>
+     *
      * @param reader  a reader.
      * @param options the options for lexing.
      */
@@ -266,7 +267,7 @@ public class Json5Lexer {
             if (comment.length() == 0 && isLineTerminator(n)) {
                 // Skip heading line-terminators
                 continue;
-            } else if (character == offset+1 && isWhitespace(n)) {
+            } else if (character == offset + 1 && isWhitespace(n)) {
                 // Skip stylistic whitespace between comment indicator and actual comment content
                 continue;
             } else if (character <= offset && (isWhitespace(n) || n == '*') && !isLineTerminator(n)) {
@@ -293,7 +294,7 @@ public class Json5Lexer {
             if (isLineTerminator(n) || n == 0)
                 return;
 
-            if (character == offset+1 && isWhitespace(n)) {
+            if (character == offset + 1 && isWhitespace(n)) {
                 // Skip stylistic whitespace between comment indicator and actual comment content
                 continue;
             }
@@ -362,7 +363,7 @@ public class Json5Lexer {
 
         int numDigits = utf32 ? 8 : 4;
 
-        for(int i = 0; i < numDigits; ++i) {
+        for (int i = 0; i < numDigits; ++i) {
             char n = next();
             value += n;
 
@@ -426,9 +427,7 @@ public class Json5Lexer {
 
                     // escaped line terminator/ line continuation
                     continue;
-                }
-
-                else switch(n) {
+                } else switch (n) {
                     case 0:
                         throw syntaxError("Expected escape sequence in string, got EOF instead");
 
@@ -498,8 +497,7 @@ public class Json5Lexer {
                             n = chars[1];
 
                             result.append(prev);
-                        }
-                        else n = chars[0];
+                        } else n = chars[0];
 
                         break;
 
@@ -590,10 +588,8 @@ public class Json5Lexer {
                     n = chars[1];
 
                     result.append(prev);
-                }
-                else n = chars[0];
-            }
-            else if (!isMemberNameChar(n, part)) {
+                } else n = chars[0];
+            } else if (!isMemberNameChar(n, part)) {
                 back();
                 checkSurrogate(prev, (char) 0);
                 break;
@@ -602,7 +598,7 @@ public class Json5Lexer {
             checkSurrogate(prev, n);
 
             result.append(n);
-        } while(more());
+        } while (more());
 
         if (result.length() == 0)
             throw syntaxError("Expected key");
@@ -621,7 +617,7 @@ public class Json5Lexer {
         boolean wasRoot = root;
 
         try {
-            switch(n) {
+            switch (n) {
                 case '"':
                 case '\'':
                     return Json5Primitive.fromString(nextString(n));
@@ -660,10 +656,9 @@ public class Json5Lexer {
 
             double sign = 1;
 
-            if(leading == '+') {
+            if (leading == '+') {
                 rest = string.substring(1);
-            }
-            else if(leading == '-') {
+            } else if (leading == '-') {
                 rest = string.substring(1);
                 sign = -1;
             }
@@ -691,10 +686,10 @@ public class Json5Lexer {
                     int radix = parsedNum.getRadix();
 
                     if (sign < 0) {
-                        if(num instanceof BigInteger)
+                        if (num instanceof BigInteger)
                             return Json5Primitive.fromNumber(((BigInteger) num).negate(), radix);
 
-                        if(num instanceof BigDecimal)
+                        if (num instanceof BigDecimal)
                             return Json5Primitive.fromNumber(((BigDecimal) num).negate(), radix);
                     }
 
@@ -722,7 +717,7 @@ public class Json5Lexer {
             /************
              * PREFIXES *
              ************/
-            switch(c = input.charAt(1)) {
+            switch (c = input.charAt(1)) {
                 /**********
                  * BINARY *
                  **********/
@@ -818,7 +813,7 @@ public class Json5Lexer {
                             break;
                         }
 
-                        if  (!ishex(c))
+                        if (!ishex(c))
                             throw syntaxError("Expected hexadecimal digit for literal");
 
                         intValue = intValue.shiftLeft(4);
@@ -837,7 +832,7 @@ public class Json5Lexer {
 
                 default:
                     break;
-            };
+            }
         }
 
         StringBuilder num = new StringBuilder();
@@ -914,8 +909,7 @@ public class Json5Lexer {
 
                     if (c != '0')
                         fractionInt = fractionInt.or(BigInteger.valueOf(dehex(c)));
-                }
-                else {
+                } else {
                     if (c == 'e' || c == 'E')
                         break;
 
@@ -957,7 +951,7 @@ public class Json5Lexer {
             c = input.charAt(off++);
 
             if (checkDigitSeparator(c)) {
-                if( numExpDigits == 0 || off >= n || !isDecimalDigit(input.charAt(off)))
+                if (numExpDigits == 0 || off >= n || !isDecimalDigit(input.charAt(off)))
                     throw syntaxError("Illegal position for digit separator");
 
                 continue;
@@ -997,8 +991,7 @@ public class Json5Lexer {
 
         try {
             scale = new BigDecimal(BigInteger.TWO.pow(exponent.intValueExact()));
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             throw syntaxError("Hexadecimal floating-point literal's exponent is too large");
         }
 
@@ -1027,7 +1020,7 @@ public class Json5Lexer {
      * Constructs a new {@link Json5Exception} with a detail message and a causing exception
      *
      * @param message the detail message
-     * @param cause the causing exception
+     * @param cause   the causing exception
      * @return a {@link Json5Exception}
      */
     public Json5Exception syntaxError(String message, Throwable cause) {
@@ -1050,13 +1043,13 @@ public class Json5Lexer {
     }
 
     private static int dehex(char c) {
-        if(c >= '0' && c <= '9')
+        if (c >= '0' && c <= '9')
             return c - '0';
 
-        if(c >= 'a' && c <= 'f')
+        if (c >= 'a' && c <= 'f')
             return c - 'a' + 0xA;
 
-        if(c >= 'A' && c <= 'F')
+        if (c >= 'A' && c <= 'F')
             return c - 'A' + 0xA;
 
         return -1;

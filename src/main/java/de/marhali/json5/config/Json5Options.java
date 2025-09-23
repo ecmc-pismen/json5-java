@@ -124,7 +124,7 @@ public final class Json5Options {
      * due to the trailing {@code abc}:
      *
      * <pre><code>{ }abc</code></pre>
-     *
+     * <p>
      * If {@code true}, however, this will be interpreted as an empty
      * {@link Json5Object} and any trailing will be ignored.
      * <p>
@@ -206,6 +206,7 @@ public final class Json5Options {
 
     /**
      * Configure options using the builder pattern.
+     *
      * @return builder
      */
     public static Builder builder() {
@@ -230,17 +231,17 @@ public final class Json5Options {
      * </ul>
      */
     public static Json5Options DEFAULT = builder()
-            .allowNaN()
-            .allowInfinity()
-            .allowInvalidSurrogates()
-            .quoteless()
-            .parseComments()
-            .writeComments()
-            .trailingComma()
-            .digitSeparatorStrategy(DigitSeparatorStrategy.NONE)
-            .duplicateKeyStrategy(DuplicateKeyStrategy.UNIQUE)
-            .prettyPrinting()
-            .build();
+        .allowNaN()
+        .allowInfinity()
+        .allowInvalidSurrogates()
+        .quoteless()
+        .parseComments()
+        .writeComments()
+        .trailingComma()
+        .digitSeparatorStrategy(DigitSeparatorStrategy.NONE)
+        .duplicateKeyStrategy(DuplicateKeyStrategy.UNIQUE)
+        .prettyPrinting()
+        .build();
 
     private Json5Options(Builder builder) {
         this.stringifyUnixInstants = builder.stringifyUnixInstants;
@@ -260,7 +261,8 @@ public final class Json5Options {
         this.trailingComma = builder.trailingComma;
         this.insertFinalNewline = builder.insertFinalNewline;
         this.digitSeparatorStrategy = builder.digitSeparatorStrategy;
-        this.duplicateBehaviour = builder.duplicateKeyStrategy;this.indentFactor = builder.indentFactor;
+        this.duplicateBehaviour = builder.duplicateKeyStrategy;
+        this.indentFactor = builder.indentFactor;
     }
 
     public boolean isStringifyUnixInstants() {
@@ -363,7 +365,7 @@ public final class Json5Options {
         private boolean allowOctalLiterals = false;
         private boolean allowHexFloatingLiterals = false;
         private boolean allowLongUnicodeEscapes = false;
-        private boolean allowTrailingData =  false;
+        private boolean allowTrailingData = false;
         private boolean parseComments = false;
         private boolean writeComments = false;
         private boolean trailingComma = false;
@@ -372,7 +374,8 @@ public final class Json5Options {
         private DuplicateKeyStrategy duplicateKeyStrategy = DuplicateKeyStrategy.UNIQUE;
         private int indentFactor = 0;
 
-        private Builder() {}
+        private Builder() {
+        }
 
         /**
          * @return built {@link Json5Options}
@@ -382,8 +385,8 @@ public final class Json5Options {
         }
 
         /**
-         * @see Json5Options#stringifyUnixInstants
          * @return builder
+         * @see Json5Options#stringifyUnixInstants
          */
         public Builder stringifyUnixInstants() {
             this.stringifyUnixInstants = true;
@@ -391,8 +394,8 @@ public final class Json5Options {
         }
 
         /**
-         * @see Json5Options#stringifyAscii
          * @return builder
+         * @see Json5Options#stringifyAscii
          */
         public Builder stringifyAscii() {
             this.stringifyAscii = true;
@@ -400,8 +403,8 @@ public final class Json5Options {
         }
 
         /**
-         * @see Json5Options#allowNaN
          * @return builder
+         * @see Json5Options#allowNaN
          */
         public Builder allowNaN() {
             this.allowNaN = true;
@@ -409,8 +412,8 @@ public final class Json5Options {
         }
 
         /**
-         * @see Json5Options#allowInfinity
          * @return builder
+         * @see Json5Options#allowInfinity
          */
         public Builder allowInfinity() {
             this.allowInfinity = true;
@@ -418,8 +421,8 @@ public final class Json5Options {
         }
 
         /**
-         * @see Json5Options#allowInvalidSurrogates
          * @return builder
+         * @see Json5Options#allowInvalidSurrogates
          */
         public Builder allowInvalidSurrogates() {
             this.allowInvalidSurrogates = true;
@@ -427,8 +430,8 @@ public final class Json5Options {
         }
 
         /**
-         * @see Json5Options#quoteSingle
          * @return builder
+         * @see Json5Options#quoteSingle
          */
         public Builder quoteSingle() {
             this.quoteSingle = true;
@@ -436,8 +439,8 @@ public final class Json5Options {
         }
 
         /**
-         * @see Json5Options#quoteless
          * @return builder
+         * @see Json5Options#quoteless
          */
         public Builder quoteless() {
             this.quoteless = true;
@@ -445,8 +448,8 @@ public final class Json5Options {
         }
 
         /**
-         * @see Json5Options#allowBinaryLiterals
          * @return builder
+         * @see Json5Options#allowBinaryLiterals
          */
         public Builder allowBinaryLiterals() {
             this.allowBinaryLiterals = true;
@@ -454,8 +457,8 @@ public final class Json5Options {
         }
 
         /**
-         * @see Json5Options#allowOctalLiterals
          * @return builder
+         * @see Json5Options#allowOctalLiterals
          */
         public Builder allowOctalLiterals() {
             this.allowOctalLiterals = true;
@@ -463,8 +466,8 @@ public final class Json5Options {
         }
 
         /**
-         * @see Json5Options#allowHexFloatingLiterals
          * @return builder
+         * @see Json5Options#allowHexFloatingLiterals
          */
         public Builder allowHexFloatingLiterals() {
             this.allowHexFloatingLiterals = true;
@@ -472,8 +475,8 @@ public final class Json5Options {
         }
 
         /**
-         * @see Json5Options#allowLongUnicodeEscapes
          * @return builder
+         * @see Json5Options#allowLongUnicodeEscapes
          */
         public Builder allowLongUnicodeEscapes() {
             this.allowLongUnicodeEscapes = true;
@@ -481,8 +484,8 @@ public final class Json5Options {
         }
 
         /**
-         * @see Json5Options#allowTrailingData
          * @return builder
+         * @see Json5Options#allowTrailingData
          */
         public Builder allowTrailingData() {
             this.allowTrailingData = true;
@@ -490,8 +493,8 @@ public final class Json5Options {
         }
 
         /**
-         * @see Json5Options#parseComments
          * @return builder
+         * @see Json5Options#parseComments
          */
         public Builder parseComments() {
             this.parseComments = true;
@@ -499,8 +502,8 @@ public final class Json5Options {
         }
 
         /**
-         * @see Json5Options#writeComments
          * @return builder
+         * @see Json5Options#writeComments
          */
         public Builder writeComments() {
             this.writeComments = true;
@@ -508,8 +511,8 @@ public final class Json5Options {
         }
 
         /**
-         * @see Json5Options#trailingComma
          * @return builder
+         * @see Json5Options#trailingComma
          */
         public Builder trailingComma() {
             this.trailingComma = true;
@@ -517,8 +520,8 @@ public final class Json5Options {
         }
 
         /**
-         * @see Json5Options#insertFinalNewline
          * @return builder
+         * @see Json5Options#insertFinalNewline
          */
         public Builder insertFinalNewline() {
             this.insertFinalNewline = true;
@@ -526,9 +529,9 @@ public final class Json5Options {
         }
 
         /**
-         * @see Json5Options#digitSeparatorStrategy
          * @param digitSeparatorStrategy Strategy to apply
          * @return builder
+         * @see Json5Options#digitSeparatorStrategy
          */
         public Builder digitSeparatorStrategy(DigitSeparatorStrategy digitSeparatorStrategy) {
             this.digitSeparatorStrategy = digitSeparatorStrategy;
@@ -536,9 +539,9 @@ public final class Json5Options {
         }
 
         /**
-         * @see Json5Options#duplicateBehaviour
          * @param duplicateKeyStrategy Strategy to apply
          * @return builder
+         * @see Json5Options#duplicateBehaviour
          */
         public Builder duplicateKeyStrategy(DuplicateKeyStrategy duplicateKeyStrategy) {
             this.duplicateKeyStrategy = duplicateKeyStrategy;
@@ -546,9 +549,9 @@ public final class Json5Options {
         }
 
         /**
-         * @see Json5Options#indentFactor
          * @param indentFactor Indent factor to apply
          * @return builder
+         * @see Json5Options#indentFactor
          */
         public Builder indentFactor(int indentFactor) {
             this.indentFactor = indentFactor;
@@ -558,9 +561,10 @@ public final class Json5Options {
         /**
          * Configures pretty printing using 2 whitespaces for serialization (writing).
          * Shorthand for {@code indentFactor(2)}.
+         *
+         * @return builder
          * @see Json5Options#indentFactor
          * @see #indentFactor(int)
-         * @return builder
          */
         public Builder prettyPrinting() {
             return indentFactor(2);
