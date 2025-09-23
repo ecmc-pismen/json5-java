@@ -16,6 +16,7 @@
 
 package de.marhali.json5;
 
+import de.marhali.json5.config.Json5Options;
 import de.marhali.json5.stream.Json5Lexer;
 import de.marhali.json5.stream.Json5Parser;
 import de.marhali.json5.stream.Json5Writer;
@@ -25,39 +26,79 @@ import java.util.Objects;
 import java.util.function.Function;
 
 /**
- * This is the main class for using JSON5. This class provides methods to parse and
+ * This is the main class for using Json5. This class provides methods to parse and
  * serialize Json5 data according to the specification and the configured {@link Json5Options options}.
  *
  * <p>
- *     You can create a Json5 instance by invoking {@link #Json5(Json5Options)}
- *     or by using {@link #builder(Function)}.
- *     </p>
- *
- * <p>
- *     This class contains several utility methods to parse and serialize json5 data by passing
- *     {@link Reader}, {@link Writer} or simple {@link String} instances.
+ * You can create a Json5 instance by invoking {@link #Json5(Json5Options)}
+ * or by using {@link #builder(Function)}.
  * </p>
  *
+ * <p>
+ * This class contains several utility methods to parse and serialize json5 data by passing
+ * {@link Reader}, {@link Writer} or simple {@link String} instances.
+ * </p>
+ *
+ * <pre>
+ * {@code
+ * // Create Json5 instance using builder pattern to configure desired options
+ * Json5 json5 = Json5.builder(builder -> builder
+ *     .quoteless()
+ *     .quoteSingle()
+ *     .parseComments()
+ *     .writeComments()
+ *     .prettyPrinting()
+ *     .build()
+ *     );
+ *
+ * // Parse from a String
+ * Json5Element element =
+ *         json5.parse("{ 'key': 'value', 'array': ['first val','second val'] }");
+ *
+ * // Or parse from a Reader or InputStream
+ * try (InputStream stream = ...) {
+ *     Json5Element element = json5.parse(stream);
+ *     // ...
+ * } catch (IOException e) {
+ *     // ...
+ * }
+ *
+ * // Serialize to a String
+ * String json5String = json5.serialize(element);
+ *
+ * // Serialize to a Writer or OutputStream
+ * try (OutputStream stream = ...) {
+ *     json5.serialize(element, stream);
+ *     // ...
+ * } catch (IOException e) {
+ *     // ...
+ * }
+ *
+ * }
+ * </pre>
+ *
  * @author Marcel Haßlinger
- * @see <a href="https://spec.json5.org/">JSON5 Specification</a>
+ * @see <a href="https://spec.json5.org/">Json5 Specification</a>
  * @see Json5Parser
  * @see Json5Writer
  */
 public final class Json5 {
 
     /**
-     * Constructs a new json5 instance by using the {@link Json5OptionsBuilder}.
+     * Constructs a new json5 instance by using the {@link Json5Options#builder()}.
+     *
      * @param builder Options builder
-     * @return Provide built options by returning {@link Json5OptionsBuilder#build()} method
+     * @return Built options
      */
-    public static Json5 builder(Function<Json5OptionsBuilder, Json5Options> builder) {
-        return new Json5(builder.apply(new Json5OptionsBuilder()));
+    public static Json5 builder(Function<Json5Options.Builder, Json5Options> builder) {
+        return new Json5(builder.apply(Json5Options.builder()));
     }
 
     private final Json5Options options;
 
     /**
      * Constructs a new json5 instance with custom configuration for parsing and serialization.
+     *
      * @param options Configuration options
      * @see #builder(Function)
      */
@@ -67,6 +108,7 @@ public final class Json5 {
 
     /**
      * Constructs a json5 instance by using {@link Json5Options#DEFAULT} as configuration.
+     *
      * @see #Json5(Json5Options)
      */
     public Json5() {
@@ -74,9 +116,9 @@ public final class Json5 {
     }
 
     /**
-     * Parses the data from the {@link InputStream} into a tree of {@link Json5Element}'s. There must be
-     * a root element based on a {@link Json5Object} or {@link Json5Array}.
+     * Parses the data from the {@link InputStream} into a tree of {@link Json5Element}'s.
      * <p><b>Note:</b> The stream must be closed after operation</p>
+     *
      * @param in Can be any applicable {@link InputStream}
      * @return Parsed json5 tree. Can be {@code null} if the provided stream does not contain any data
      * @see #parse(Reader)
@@ -87,12 +129,12 @@ public final class Json5 {
     }
 
     /**
-     * Parses the provided read-stream into a tree of {@link Json5Element}'s. There must be
-     * a root element based on a {@link Json5Object} or {@link Json5Array}.
+     * Parses the provided read-stream into a tree of {@link Json5Element}'s.
      * <p><b>Note:</b> The reader must be closed after operation</p>
+     *
      * @param reader Can be any applicable {@link Reader}
      * @return Parsed json5 tree. Can be {@code null} if the provided stream does not contain any data
-     * @see Json5Parser#parse(Json5Lexer) 
+     * @see Json5Parser#parse(Json5Lexer)
      */
     public Json5Element parse(Reader reader) {
         Objects.requireNonNull(reader);
@@ -103,15 +145,15 @@ public final class Json5 {
 
     /**
      * Parses the provided json5-encoded {@link String} into a parse tree of {@link Json5Element}'s.
-     * There must be a root element based on a {@link Json5Object} or {@link Json5Array}.
-     * @param jsonString Json5 encoded {@link String}
+     *
+     * @param string Json5 encoded {@link String}
      * @return Parsed json5 tree. Can be {@code null} if the provided {@link String} is empty
-     * @see #parse(Reader) 
+     * @see #parse(Reader)
      */
-    public Json5Element parse(String jsonString) {
-        Objects.requireNonNull(jsonString);
+    public Json5Element parse(String string) {
+        Objects.requireNonNull(string);
 
-        StringReader reader = new StringReader(jsonString);
+        StringReader reader = new StringReader(string);
         Json5Element element = this.parse(reader);
         reader.close();
         return element;
@@ -120,8 +162,9 @@ public final class Json5 {
     /**
      * Encodes the provided element into its character literal representation by using an output-stream.
      * <p><b>Note:</b> The stream must be closed after operation ({@link OutputStream#close()})!</p>
+     *
      * @param element {@link Json5Element} to serialize
-     * @param out Can be any applicable {@link OutputStream}
+     * @param out     Can be any applicable {@link OutputStream}
      * @throws IOException If an I/O error occurs
      * @see #serialize(Json5Element, Writer)
      */
@@ -135,10 +178,11 @@ public final class Json5 {
     /**
      * Encodes the provided element into its character literal representation by using a write-stream.
      * <p><b>Note:</b> The writer must be closed after operation ({@link Writer#close()})!</p>
+     *
      * @param element {@link Json5Element} to serialize
-     * @param writer Can be any applicable {@link Writer}
+     * @param writer  Can be any applicable {@link Writer}
      * @throws IOException If an I/O error occurs
-     * @see Json5Writer#write(Json5Element) 
+     * @see Json5Writer#write(Json5Element)
      */
     public void serialize(Json5Element element, Writer writer) throws IOException {
         Objects.requireNonNull(element);
@@ -150,10 +194,11 @@ public final class Json5 {
 
     /**
      * Encodes the provided element into its character literal representation.
+     *
      * @param element {@link Json5Element} to serialize
      * @return Json5 encoded {@link String}
      * @throws IOException If an I/O error occurs
-     * @see #serialize(Json5Element, Writer) 
+     * @see #serialize(Json5Element, Writer)
      */
     public String serialize(Json5Element element) throws IOException {
         Objects.requireNonNull(element);

@@ -28,9 +28,12 @@ package de.marhali.json5.stream;
 import de.marhali.json5.Json5Array;
 import de.marhali.json5.Json5Element;
 import de.marhali.json5.Json5Object;
+import de.marhali.json5.config.DuplicateKeyStrategy;
 import de.marhali.json5.exception.Json5Exception;
 
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 /**
  * A parser to parse tokenized Json5 data into a parse tree of {@link Json5Element}'s.
@@ -40,34 +43,49 @@ import java.util.Objects;
  */
 public final class Json5Parser {
 
-    private Json5Parser() {}
+    private Json5Parser() {
+    }
 
     /**
      * Parses the specified {@link Json5Lexer lexer} into a parse tree of {@link Json5Element}'s.
      * Thereby it does not matter if the provided root element is an array or object.
+     *
      * @param lexer Tokenized json5 data
      * @return a parse tree of {@link Json5Element}'s corresponding to the specified JSON5 or {@code null} if lexer does not provide any data
      */
     public static Json5Element parse(Json5Lexer lexer) {
         Objects.requireNonNull(lexer);
 
-        switch (lexer.nextClean()) {
+        char control = lexer.nextClean();
+        String comment = lexer.consumeComment();
+        Json5Element element;
+
+        switch (control) {
             case '{':
                 lexer.back();
-                return parseObject(lexer);
+                element = parseObject(lexer);
+                break;
             case '[':
                 lexer.back();
-                return parseArray(lexer);
+                element = parseArray(lexer);
+                break;
             case 0:
                 return null;
             default:
                 throw lexer.syntaxError("Unknown or unexpected control character");
         }
+
+        if (lexer.options.isParseComments() && comment != null) {
+            element.setComment(comment);
+        }
+
+        return element;
     }
 
     /**
      * Parses the specified {@link Json5Lexer lexer} into a parse tree of an {@link Json5Object}.
-     * If the provided data does not correspond to a json object a {@link Json5Exception} will be thrown.
+     * If the provided data does not correspond to a {@link Json5Object} a {@link Json5Exception} will be thrown.
+     *
      * @param lexer Tokenized json5 data.
      * @return a parse tree of {@link Json5Object} corresponding to the specified JSON5.
      * @see #parse(Json5Lexer)
@@ -75,51 +93,84 @@ public final class Json5Parser {
     public static Json5Object parseObject(Json5Lexer lexer) {
         Objects.requireNonNull(lexer);
 
-        if(lexer.nextClean() != '{') {
-            throw lexer.syntaxError("A json object must begin with '{'");
+        if (lexer.nextClean() != '{') {
+            throw lexer.syntaxError("A Json5Object must begin with '{'");
         }
 
         Json5Object object = new Json5Object();
 
+        DuplicateKeyStrategy duplicateKeyStrategy = lexer.options.getDuplicateBehaviour();
+        Set<String> duplicates = new HashSet<>();
+
         char control;
+        String comment;
         String key;
 
         while (true) {
             control = lexer.nextClean();
+            comment = lexer.consumeComment();
+
             switch (control) {
                 case 0:
-                    throw lexer.syntaxError("A json object must end with '}'");
+                    throw lexer.syntaxError("A Json5Object must end with '}'");
                 case '}':
+                    if (lexer.root && !lexer.options.isAllowTrailingData() && lexer.nextClean() != 0) {
+                        throw lexer.syntaxError("Trailing data after Json5Object");
+                    }
                     return object;
                 default:
                     lexer.back();
                     key = lexer.nextMemberName();
             }
 
-            if(object.has(key)) {
-                throw new Json5Exception("Duplicate key " + key);
-            }
+            boolean duplicate = object.has(key);
 
-            if(lexer.nextClean() != ':') {
-                throw lexer.syntaxError("Expected ':' after a key, got '" + control + "' instead");
-            }
+            if (duplicate && duplicateKeyStrategy == DuplicateKeyStrategy.UNIQUE)
+                throw lexer.syntaxError("Duplicate key " + Json5Writer.quote(key, lexer.options));
 
-            object.add(key, lexer.nextValue());
             control = lexer.nextClean();
 
-            if(control == '}') {
-                return object;
+            if (control != ':')
+                throw lexer.syntaxError("Expected ':' after a key, got " + Json5Lexer.charToString(control) + " instead");
+
+            Json5Element value = lexer.nextValue();
+
+            if (lexer.options.isParseComments() && comment != null) {
+                value.setComment(comment);
             }
 
-            if(control != ',') {
-                throw lexer.syntaxError("Expected ',' or '}' after value, got '" + control + "' instead");
+            if (duplicate && duplicateKeyStrategy == DuplicateKeyStrategy.DUPLICATE) {
+                Json5Array array;
+
+                if (duplicates.contains(key))
+                    array = object.getAsJson5Array(key);
+
+                else {
+                    array = new Json5Array();
+                    array.add(object.get(key));
+                    duplicates.add(key);
+                }
+
+                array.add(value);
+                value = array;
             }
+
+            object.add(key, value);
+
+            control = lexer.nextClean();
+
+            if (control == '}')
+                return object;
+
+            if (control != ',')
+                throw lexer.syntaxError("Expected ',' or '}' after value, got " + Json5Lexer.charToString(control) + " instead");
         }
     }
 
     /**
      * Parses the specified {@link Json5Lexer lexer} into a parse tree of an {@link Json5Array}.
      * If the provided data does not correspond to a json array a {@link Json5Exception} will be thrown.
+     *
      * @param lexer Tokenized json5 data.
      * @return a parse tree of {@link Json5Array} corresponding to the specified JSON5.
      * @see #parse(Json5Lexer)
@@ -127,34 +178,45 @@ public final class Json5Parser {
     public static Json5Array parseArray(Json5Lexer lexer) {
         Objects.requireNonNull(lexer);
 
-        if(lexer.nextClean() != '[') {
-            throw lexer.syntaxError("A json array must begin with '['");
+        if (lexer.nextClean() != '[') {
+            throw lexer.syntaxError("A Json5Array must begin with '['");
         }
 
         Json5Array array = new Json5Array();
         char control;
+        String comment;
 
-        while(true) {
+        while (true) {
             control = lexer.nextClean();
+            comment = lexer.consumeComment();
+
             switch (control) {
                 case 0:
-                    throw lexer.syntaxError("A json array must end with ']'");
+                    throw lexer.syntaxError("A Json5Array must end with ']'");
                 case ']':
+                    if (lexer.root && !lexer.options.isAllowTrailingData() && lexer.nextClean() != 0) {
+                        throw lexer.syntaxError("Trailing data after Json5Array");
+                    }
                     return array;
                 default:
                     lexer.back();
             }
 
-            array.add(lexer.nextValue());
+            Json5Element value = lexer.nextValue();
+
+            if (lexer.options.isParseComments() && comment != null) {
+                value.setComment(comment);
+            }
+
+            array.add(value);
+
             control = lexer.nextClean();
 
-            if(control == ']') {
+            if (control == ']')
                 return array;
-            }
 
-            if(control != ',') {
-                throw lexer.syntaxError("Expected ',' or ']' after value, got '" + control + "' instead");
-            }
+            if (control != ',')
+                throw lexer.syntaxError("Expected ',' or ']' after value, got " + Json5Lexer.charToString(control) + " instead");
         }
     }
 }

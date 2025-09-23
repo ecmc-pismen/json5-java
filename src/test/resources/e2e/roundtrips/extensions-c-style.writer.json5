@@ -1,0 +1,16 @@
+// Number extensions with digit separator C-style
+{
+  decimalNumber: 1'234'567,
+  decimalNumberNegative: -11'234'567,
+  decimalNumberPositive: 111'234'567,
+  binaryNumber: 0b1010'1100,
+  binaryNumberNegative: -0b10'1100,
+  binaryNumberPositive: 0b110'1100,
+  octalNumber: 0o1'234'567,
+  octalNumberNegative: -0o12'345'671,
+  octalNumberPositive: 0o123'456'712,
+  hexNumber: 0xde'ad'be'ef,
+  hexNumberNegative: -0xa'db'ee'fa,
+  hexNumberPositive: 0xea'db'ee'fb,
+  hexFloatingPoint: 0x18'00,
+}

@@ -5,6 +5,29 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+### Added
+- Option: `stringifyUnixInstants`
+- Option: `stringifyAscii`
+- Option: `allowNaN`
+- Option: `allowInfinity`
+- Option: `quoteSingle`
+- Option: `quoteless`
+- Option: `allowBinaryLiterals`
+- Option: `allowOctalLiterals`
+- Option: `allowHexFloatingLiterals`
+- Option: `allowLongUnicodeEscapes`
+- Option: `allowTrailingData`
+- Option: `parseComments`
+- Option: `writeComments`
+- Option: `insertFinalNewline`
+- Option: `digitSeparatorStrategy`
+- Option: `duplicateBehaviour`
+### Changed
+- `Json5Null` is no longer a singleton as it allows individual comments
+- `Json5Primitive` holds any primitive value besides `Json5Null`
+- `Json5Options` with more advanced builder
+### Removed
+- `Json5Boolean`, `Json5Hexadecimal`, `Json5Number` and `Json5String` in favor of `Json5Primitive`.
 
 ## [2.0.1] - 2025-09-03
 ### Changed

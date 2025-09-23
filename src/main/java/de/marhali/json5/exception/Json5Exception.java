@@ -59,7 +59,7 @@ public class Json5Exception extends RuntimeException {
      * Constructs a new JSONException with a detail message and a causing exception
      *
      * @param message the detail message
-     * @param cause the causing exception
+     * @param cause   the causing exception
      */
     public Json5Exception(String message, Throwable cause) {
         super(message, cause);
