@@ -1,5 +1,6 @@
 # json5-java 
-[![Build](https://img.shields.io/github/actions/workflow/status/marhali/json5-java/ci.yml?branch=main&style=for-the-badge)](https://github.com/marhali/json5-java/actions)
+
+[![Build](https://img.shields.io/github/actions/workflow/status/marhali/json5-java/build.yml?branch=main&style=for-the-badge)](https://github.com/marhali/json5-java/actions)
 [![Release](https://img.shields.io/github/v/release/marhali/json5-java?style=for-the-badge)](https://github.com/marhali/json5-java/releases)
 [![JavaDoc](https://javadoc.io/badge2/de.marhali/json5-java/javadoc.svg?style=for-the-badge)](https://javadoc.io/doc/de.marhali/json5-java)
 [![Coverage](https://img.shields.io/codecov/c/github/marhali/json5-java?style=for-the-badge)](https://codecov.io/gh/marhali/json5-java)
