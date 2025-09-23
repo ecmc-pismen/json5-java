@@ -90,11 +90,19 @@ jobs:
           name: tests-result
           path: ${{ github.workspace }}/build/reports/tests
 
-      # Upload the Kover report to CodeCov
+      # Upload the jacoco report to CodeCov
       - name: Upload Code Coverage Report
         uses: codecov/codecov-action@v5
         with:
           files: ${{ github.workspace }}/build/reports/jacoco/jacocoTestReport.xml
+          token: ${{ secrets.CODECOV_TOKEN }}
+
+     # Upload the test results to CodeCov
+      - name: Upload test results to Codecov
+        if: ${{ !cancelled() }}
+        uses: codecov/test-results-action@v1
+        with:
+          files: ${{ github.workspace }}/build/test-results/test/*.xml
           token: ${{ secrets.CODECOV_TOKEN }}
 
   # Run Qodana inspections and provide a report
